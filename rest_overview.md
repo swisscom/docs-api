@@ -1,0 +1,84 @@
+# REST Overview
+
+##What is REST?
+REST stands for <b>RE</b>presentational <b>S</b>tate <b>T</b>ransfer, which describes the architectural style of using HTTP to make remote procedure calls. Instead of using a heavy RPC mechanisms such as XML-RPC or SOAP, a REST web API uses the design of the HTTP protocol to define the remote methods.
+
+Almost everyone with a technical background understands what an HTTP GET call is, but it is less understood that HTTP has a vocabulary of operations that is very similar to the CRUD calls needed to maintain the state of entities. What most people call an URL is often called a resource in REST. Each resource can be called with a given operation which is called a HTTP method. Here is a list of the most common HTTP methods called in REST and the CRUD equivalent:
+
+|       REST     |     CRUD     |
+| ------------  | ------------- |
+|     POST      |    Create     |
+|     GET        |     Read       |
+|     PUT        |    Update   |
+|   DELETE   |     Delete    |
+
+##REST Example: User API
+
+Let's go through an example of a fictional REST API for managing users. The following table shows the different resources and methods to manipulate user entities:
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+	<thead>
+		<tr>
+			<th scope="col" style="width: 94px;">REST Call</th>
+			<th scope="col" style="width: 100px;">HTTP Method</th>
+			<th scope="col" style="width: 384.55px;">Resource (URL)</th>
+			<th scope="col" style="width: 577.45px;">Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="width: 94px;">List users</td>
+			<td style="width: 100px;">GET</td>
+			<td style="width: 384.55px;">http://swisscom.ch/api/user</td>
+			<td style="width: 577.45px;">Get a list of the users in the system, which in most cases will be a summary view. It is also common to allow the use of keywords via attributes such as http://swisscom.ch/api/user?firstName=Humpty to limit the list to users have the first name of &quot;Humpty&quot;.</td>
+		</tr>
+		<tr>
+			<td style="width: 94px;">Create user</td>
+			<td style="width: 100px;">POST</td>
+			<td style="width: 384.55px;">http://swisscom.ch/api/user</td>
+			<td style="width: 577.45px;">This call makes a POST call to the same URL resource as the list users. You will need to send the create attributes in the post request. This is commonly done by sending a payload of attributes in JSON format. For example, to create a user in our system named Humpty Dumpty, we would send a payload like this:
+				<pre>{
+  &quot;firstName&quot; : &quot;Humpty&quot;,
+  &quot;lastName&quot; : &quot;Dumpty&quot;,
+  &quot;userName&quot; : &quot;hdumpty&quot;,
+  &quot;email&quot; : &quot;humpty.dumpty@swisscom.com&quot;,
+  &quot;status&quot; : &quot;active&quot;,
+}
+</pre>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 94px;">Get user</td>
+			<td style="width: 100px;">GET</td>
+			<td style="width: 384.55px;">http://swisscom.ch/api/user/hdumpty</td>
+			<td style="width: 577.45px;">Get a user and all details. Note the URL has the unique ID representing the user.</td>
+		</tr>
+		<tr>
+			<td style="width: 94px;">Update&nbsp; user</td>
+			<td style="width: 100px;">PUT</td>
+			<td style="width: 384.55px;">http://swisscom.ch/api/user/hdumpty</td>
+			<td style="width: 577.45px;">Update the user w/attributes sent in the payload, just like the create user request. For example, to change the status of Humpty Dumpty to &quot;broken&quot;:
+				<pre>{
+  &quot;firstName&quot; : &quot;Humpty&quot;,
+  &quot;lastName&quot; : &quot;Dumpty&quot;,
+  &quot;userName&quot; : &quot;hdumpty&quot;,
+  &quot;email&quot; : &quot;humpty.dumpty@swisscom.com&quot;,
+  &quot;status&quot; : &quot;broken&quot;,
+}
+</pre>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 94px;">Delete user</td>
+			<td style="width: 100px;">DELETE</td>
+			<td style="width: 384.55px;">http://swisscom.ch/api/user/hdumpty</td>
+			<td style="width: 577.45px;">Since no one could put Humpty back together again, the DELETE call to the hdumpty resource URL will remove him.</td>
+		</tr>
+	</tbody>
+</table>
+
+##Why REST?
+Swisscom has decided to expose services via REST due to the simple nature of REST APIs for the following reasons:
+
+* Easy to understand: Instead of using a more complex RPC mechanism such as SOAP, a REST API helps developers get up and running quickly. REST is easy to read and understand, and can be tested by using a standard browser.
+* Language neutral: REST is easy to implement in any language - every modern programming language will have HTTP and JSON encoding methods built into the language. Most languages also have multiple open source libraries that make REST calls even easier.

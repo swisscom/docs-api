@@ -3,26 +3,19 @@
 ## Table of Contents
 1. [Overview](#overview)
 2. [API - Resources](#API)
-	1. [/messaging/v1/carrierinfo/](#/messaging/v1/carrierinfo/)
-	2. [/messaging/v1/shortname/shortids/{shortId}](#/messaging/v1/shortname/shortids/{shortId})
-	3. [/messaging/v1/shortname/providers/{providerName}](#/messaging/v1/shortname/providers/{providerName})
 	4. [/messaging/v1/sms/](#/messaging/v1/sms/)
 	5. [/messaging/v1/sms/{messageId}](#/messaging/v1/sms/{messageId})
 	6. [/messaging/v1/tokenvalidation/](#/messaging/v1/tokenvalidation/)
 	7. [/messaging/v1/tokenvalidation/{msisdn}/{token}](#/messaging/v1/tokenvalidation/{msisdn}/{token})
 3. [API - Error Handling](#ERROR)
+4. [ClientId Authentication](#AUTHENTICATION)
+5. [Examples](#EXAMPLES)
 
 
 <div id='overview'/>
 ## Overview
 
 The SmartMessaging API provides different resources around the topic mobile messaging. 
-
-**CarrierInfo**
-Use this resource to resolve extended carrier information for a given phone number. Is it a Swisscom number or does the number depends to a domestic or international carrier? The resource also provides information about customers contract (prepaid or postpaid).
-
-**ShortName**
-Swisscom provides short numbers as alias for a real MSISDN (e.g. for marketing phone services). This resource allows you to resolve detail information abut the provider, who owns the given short number. It is also possible resolve all short numbers for a provider.
 
 **Sms**
 Resource to send a SMS. It is also possible to receive a status notification.
@@ -32,296 +25,6 @@ Simple  resource to validate a phone number by token.  To validate a number a we
 
 <div id='API'/>
 ## API - Resources
-
-<div id='/messaging/v1/carrierinfo/'/>
-### /messaging/v1/carrierinfo/
-
-#### **get** *(secured)*: Get carrier information and contract information about a number. 
-Either a ClientID is used for authentication or an OAuth Token.    
-If a ClientID is used only the carrier info is displayed (swisscom or not).
-If an OAuth Token is used the contract type is displayed as well (prepaid or postpaid).
-In OAuth case, the scope **read-carrier-info** is needed.
-
-##### **Request** 
-###### **Headers**
-
- - client_id (Id to authenticate client)
- - Accept (application/json)
-
-###### **Query-Parameters**
-
-- tel (the phone number to get info on.)
-
-##### **Success Responses**
-###### **200 Response (application/json)** 
-<pre><code>{
-  "tel": "+41712345678",
-  "carrier": "swisscom",
-  "contractType": "postpaid"
-}</code></pre>
-<pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://api.swisscom.com/messaging/v1/sms/messaging-sms-post.json",
-    "title": "Carrierinfo Schema",
-    "type": "object",
-    "properties": {
-        "tel": {
-            "type": "string",
-            "description": "The telephone number for which the carrier info is resolved"
-        },
-        "carrier": {
-            "type": "string",
-            "description": "carrier of the above telephone number"
-        },
-        "contractType": {
-            "type": "string",
-            "enum": [
-				"unknown",
-				"prepaid",
-				"postpaid"
-            ],
-            "description": "prepaid or postpaid; this is an optional element"
-        }
-    },
-    "required": [
-        "tel", "carrier"
-    ]
-}</code></pre>
-
-##### **Error Responses**
-
-[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406), [500](#500), [503](#503), 
-
-<div id='/messaging/v1/shortname/shortids/{shortId}'/>
-### /messaging/v1/shortname/shortids/{shortId}
-
-#### **get**: Get provider information which stands behind a short number
-
-##### **Request** 
-###### **Headers**
-
- - client_id (Id to authenticate client)
- - Accept (application/json)
-
-###### **URI Parameters**
- - shortId (The shortId to resolve.)
-
-##### **Success Responses**
-###### **200 Response (application/json)** 
-<pre><code>{
-   "id":1270,
-   "shortID":"50051",
-   "systemtype":"sms",
-   "shortidstate":"blocked",
-   "hotlinephone":"0800800800",
-   "hotlineemail":"swisscom@support.mondiamedia.de",
-   "hotlinetime":"Mo - Fr 08:00 - 17:00h\nSa\nSo",
-   "providername":"Mondia Media Group GmbH",
-   "provideraddress1":"Kehrwieder 8",
-   "provideraddress2":null,
-   "providerzip":"20457",
-   "providercity":"Hamburg",
-   "descriptionDE":"Für weitere Informationen bitte nur via email swisscom@support.mondiamedia.de",
-   "descriptionFR":"Pour plus des info, veuillez envoyer une email Ã  swisscom@support.mondiamedia.de",
-   "descriptionIT":"Per oltre informazioni vi preghiamo di mandare una email : swisscom@support.mondiamedia.de",
-   "descriptionEN":"Please send your request only by using the emailadr. swisscom@support.mondiamedia.de"
-}</code></pre>
-<pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "type": "object",
-  "properties": {
-    "id": {
-      "type":["integer", "null"]
-    },
-    "shortID": {
-      "type":["string", "null"]
-    },
-    "systemtype": {
-      "enum" : [
-        "sms",
-        "easypay",
-        null]
-    },
-    "shortidstate": {
-      "enum": [
-        "available", 
-        "active", 
-        "reserved", 
-        "blocked", 
-        "temporarilyblocked",
-        null] 
-    },
-    "hotlinephone": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "hotlineemail": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "hotlinetime": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "providername": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "provideraddress1": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "provideraddress2": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "providerzip": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "providercity": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "descriptionDE": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "descriptionFR": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "descriptionIT": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "descriptionEN": {
-      "type": [
-        "string",
-        "null"
-      ]
-    }
-  }
-}</code></pre>
-
-##### **Error Responses**
-
-[401](#401), [403](#403), [404](#404), [405](#405), [500](#500), [503](#503)
-
-<div id='/messaging/v1/shortname/providers/{providerName}'/>
-### /messaging/v1/shortname/providers/{providerName}
-
-#### **get**: Get all short numbers of a given provider
-
-##### **Request** 
-###### **Headers**
-
- - client_id (Id to authenticate client)
- - Accept (application/json)
-
-###### **URI Parameters**
- - providerName (The name of provider to resolve.)
-
-##### **Success Responses**
-###### **200 Response (application/json)** 
-
-<pre><code>[
-   {
-      "name": "Mondia Media Group GmbH",
-      "address1": "Kehrwieder 8",
-      "address2": null,
-      "zip": "20457",
-      "city": "Hamburg",
-      "shortids": 
-      [
-         "50051"
-      ]
-   },
-   {
-      "name": "Mondia Media Group GmbH",
-      "address1": null,
-      "address2": null,
-      "zip": "",
-      "city": null,
-      "shortids": 
-      [
-         "SG",
-         "SGR01"
-      ]
-   }
-]</code></pre>
-<pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "array",
-    "items": {
-        "type": "object",       
-        "properties": {
-            "address1": {
-                "type": [
-                    "string",
-                    "null"
-                ]
-            },
-            "address2": {
-                "type": [
-                    "string",
-                    "null"
-                ]
-            },
-            "city": {
-                "type": [
-                    "string",
-                    "null"
-                ]
-            },
-            "name": {
-                "type": [
-                    "string",
-                    "null"
-                ]
-            },
-            "shortids":
-            {
-                "type": "array",
-                "items": {
-                    "type": "string"
-                }
-            },
-            "zip": {
-                "type": [
-                    "string",
-                    "null"
-                ]
-            }
-        }
-    }
-}</code></pre>
-
-##### **Error Responses**
-
-[401](#401), [403](#403), [404](#404), [405](#405), [500](#500), [503](#503)
 
 <div id='/messaging/v1/sms/'/>
 ### /messaging/v1/sms/
@@ -641,3 +344,36 @@ In OAuth case, the scope **read-carrier-info** is needed.
   "detail": ""
 }</code></pre>
 
+<div id='AUTHENTICATION'/>
+## ClientId Authentication
+The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you booked the SmartSms service. For a valid authentication you have to set the ClientId as HTTP header "client_id". See also examples for details.
+
+<div id='EXAMPLES'/>
+## Examples
+You can quickly make calls to the Swisscom APIs using [cURL](http://curl.haxx.se) in the command line. If you have not already installed cURL, use the [cURL Download Wizard](http://curl.haxx.se/dlwiz/?type=bin) to get the correct binary.
+
+### Sending SMS
+This first call shows how to send a SMS without optional parameter:
+<code>
+curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"text\": \"hello world\"}"  
+</code>
+
+By default your registered mobile number is used as sender number. To display a different sender number you can set the "from" parameter. Notice: you need special permissions to use this parameter. Please contact our support team, to book this feature.   
+
+If you need updates about the SMS state (e.g. SMS was received). You can set the "callBackUrl" parameter.  You will receive a HTTP PUT request on this URL, on any SMS state change.
+<code>
+curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"from\": \"Swisscom\", \"text\": \"hello world\", \"callbackUrl\": \"http://mydomain.net/notification\"}"  
+</code>
+
+### Token Validation
+
+If you want to verify the mobile number of a customer, you can simple send a SMS token with this request:
+<code>
+curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST " https://api.swisscom.com/messaging/v1/sms/tokenvalidation" -d "{\"to\":\"+417xxxxxxxx\",\"text\":\"Take this token: %TOKEN%\", \"tokenType\":\"SHORT_NUMERIC\",\"expireTime\":120,\"tokenLength\":6}"
+ </code>
+
+The customer receives the token on his mobile. After he types the token into your web form, you can do a verification with the following request:
+
+<code>
+curl -ik -H "Accept: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X GET " https://api.swisscom.com/messaging/v1/sms/tokenvalidation/00417xxxxxxxx/%RECEIVED_TOKEN_GOES_HERE%"
+</code>
