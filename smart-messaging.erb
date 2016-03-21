@@ -19,7 +19,7 @@ Simple resource to validate a phone number by token. To validate a number, a wel
 
 ## <a id='API'></a> API Resources
 
-### <a id='/messaging/v1/sms'></a> /messaging/v1/sms/
+### <a id='/messaging/v1/sms'></a> /messaging/v1/sms
 
 #### POST
 
@@ -139,7 +139,7 @@ Get Status information for an SMS
 
 [401](#401), [403](#403), [404](#404), [405](#405), [500](#500), [503](#503)
 
-### <a id='/messaging/v1/tokenvalidation/'></a> /messaging/v1/tokenvalidation/
+### <a id='/messaging/v1/tokenvalidation'></a> /messaging/v1/tokenvalidation
 
 #### POST
 
@@ -309,7 +309,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 ### Error Response Examples
 
-#### <a id='400'></a> **400** (Bad Request. Invalid request.)
+#### <a id='400'></a> 400 (Bad Request. Invalid request.)
 
 ```JSON
 {
@@ -320,7 +320,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='401'></a> **401** (Unauthorized. No permission to resource or invalid api key.)
+#### <a id='401'></a> 401 (Unauthorized. No permission to resource or invalid api key.)
 
 ```JSON
 {
@@ -331,7 +331,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='403'></a> **403** (Forbidden. No permission for requested resource.)
+#### <a id='403'></a> 403 (Forbidden. No permission for requested resource.)
 
 ```JSON
 {
@@ -342,7 +342,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='404'></a> **404** (Not Found. The server has not found anything matching the Request-URI.)
+#### <a id='404'></a> 404 (Not Found. The server has not found anything matching the Request-URI.)
 
 ```JSON
 {
@@ -353,7 +353,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='405'></a> **405** (Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.)
+#### <a id='405'></a> 405 (Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.)
 
 ```JSON
 {
@@ -364,7 +364,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='406'></a> **406** (Invalid Header Accept. The provided Accept-type is not equal the accepted. E.g. application/zip instead of text/json.)
+#### <a id='406'></a> 406 (Invalid Header Accept. The provided Accept-type is not equal the accepted. E.g. application/zip instead of text/json.)
 
 ```JSON
 {
@@ -375,7 +375,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='429'></a> **429** (Too Many Requests. Quota for this service has been exhausted. Message must contain further details.)
+#### <a id='429'></a> 429 (Too Many Requests. Quota for this service has been exhausted. Message must contain further details.)
 
 ```JSON
 {
@@ -386,7 +386,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='500'></a> **500** (Internal Server Error. Server is misconfigured, or generic error message.)
+#### <a id='500'></a> 500 (Internal Server Error. Server is misconfigured, or generic error message.)
 
 ```JSON
 {
@@ -397,7 +397,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-#### <a id='503'></a> **503** (Service Unavailable. The server is currently unable to handle the request due to temporary overloading or maintenance. Typically back-end is unavailable.)
+#### <a id='503'></a> 503 (Service Unavailable. The server is currently unable to handle the request due to temporary overloading or maintenance. Typically back-end is unavailable.)
 
 ```JSON
 {
