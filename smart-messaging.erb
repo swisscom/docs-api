@@ -21,7 +21,7 @@ The SmartMessaging API provides different resources around the topic of mobile m
 Resource to send an SMS. It is also possible to receive a status notification.
 
 ### Token Validation
-Simple  resource to validate a phone number by token. To validate a number, a well specified SMS message with an included textual token will be sent to your customer's mobile. Now the customer is able to forward this token to your service (HTML from, Mail, Callcenter). After a quick validation by this resource, you can be sure that phone number belongs to your customer.
+Simple resource to validate a phone number by token. To validate a number, a well specified SMS message with an included textual token will be sent to your customer's mobile. Now the customer is able to forward this token to your service (HTML from, Mail, Callcenter). After a quick validation by this resource, you can be sure that phone number belongs to your customer.
 
 ## <a id='API'></a> API - Resources
 
@@ -137,7 +137,7 @@ no content
 
 ### <a id='/messaging/v1/tokenvalidation/'></a> /messaging/v1/tokenvalidation/
 
-#### **POST**: This call will start the SMS Token validation process by sending a validation token to a MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify the user recieved the validation token by calling Validate SMS Token.
+#### **POST**: This call will start the SMS Token validation process by sending a validation token to an MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify the user recieved the validation token by calling *Validate SMS Token*.
 
 ##### Request
 ###### Headers
@@ -211,7 +211,7 @@ no content
 
 ### <a id='/messaging/v1/tokenvalidation/{msisdn}/{token}'></a> /messaging/v1/tokenvalidation/{msisdn}/{token}
 
-#### **GET**: Validate the token sent to the MSISDN number by the Send SMS Token call. This call is made after the Send SMS Token call to validate the token sent to the end user via SMS.
+#### **GET**: Validate the token sent to the MSISDN number by the *Send SMS Token* call. This call is made after the *Send SMS Token* call to validate the token sent to the end user via SMS.
 
 ##### Request
 ###### Headers
@@ -385,12 +385,15 @@ no content
 ```
 
 ## <a id='authentication'></a> ClientId Authentication
-The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you booked the SmartSms service. For a valid authentication you have to set the ClientId as HTTP header "client_id". See also examples for details.
+
+The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you booked the SmartSms service. For a valid authentication, you have to set the ClientId as HTTP header `client_id`. See also examples for details.
 
 ## <a id='examples'></a> Examples
-You can quickly make calls to the Swisscom APIs using [cURL](http://curl.haxx.se) in the command line. If you have not already installed cURL, use the [cURL Download Wizard](http://curl.haxx.se/dlwiz/?type=bin) to get the correct binary.
+
+You can quickly make calls to the Swisscom APIs using [cURL](https://curl.haxx.se) in the command line. If you have not already installed cURL, use the [cURL Download Wizard](https://curl.haxx.se/dlwiz/?type=bin) to get the correct binary.
 
 ### Sending SMS
+
 This first call shows how to send a SMS without optional parameter:
 ```language-bash
 curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"text\": \"hello world\"}"
@@ -398,7 +401,7 @@ curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X 
 
 By default your registered mobile number is used as sender number. To display a different sender number you can set the "from" parameter. Notice: you need special permissions to use this parameter. Please contact our support team, to book this feature.
 
-If you need updates about the SMS state (e.g. SMS was received). You can set the "callBackUrl" parameter.  You will receive a HTTP PUT request on this URL, on any SMS state change.
+If you need updates about the SMS state (e.g. SMS was received). You can set the `callBackUrl` parameter.  You will receive a HTTP PUT request on this URL, on any SMS state change.
 ```language-bash
 curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"from\": \"Swisscom\", \"text\": \"hello world\", \"callbackUrl\": \"http://mydomain.net/notification\"}"
 ```
