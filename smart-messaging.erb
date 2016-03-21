@@ -10,9 +10,11 @@ owner: API
 The SmartMessaging API provides different resources around the topic of mobile messaging.
 
 ### SMS
+
 Resource to send an SMS. It is also possible to receive a status notification.
 
 ### Token Validation
+
 Simple resource to validate a phone number by token. To validate a number, a well specified SMS message with an included textual token will be sent to your customer's mobile. Now the customer is able to forward this token to your service (HTML from, Mail, Callcenter). After a quick validation by this resource, you can be sure that phone number belongs to your customer.
 
 ## <a id='API'></a> API Resources
@@ -20,9 +22,11 @@ Simple resource to validate a phone number by token. To validate a number, a wel
 ### <a id='/messaging/v1/sms'></a> /messaging/v1/sms/
 
 #### POST
+
 Send an SMS
 
 ##### Request
+
 ###### Headers
 
 * client_id (Id to authenticate client)
@@ -33,12 +37,13 @@ Send an SMS
 
 ```JSON
 {
-	"from" : "Swisscom",
-	"to" : "+4171234567",
-	"text" : "Greetings from Swisscom!"
-	"callbackUrl" : "http://notification.com/service"
+  "from": "Swisscom",
+  "to": "+4171234567",
+  "text": "Greetings from Swisscom!"
+  "callbackUrl": "http://notification.com/service"
 }
 ```
+
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -68,9 +73,10 @@ Send an SMS
 ```
 
 ##### Success Responses
+
 ###### 201 Response
 
-```
+```JSON
 no content
 ```
 
@@ -81,9 +87,11 @@ no content
 ### <a id='/messaging/v1/sms/{messageId}'></a> /messaging/v1/sms/{messageId}
 
 #### GET
+
 Get Status information for an SMS
 
 ##### Request
+
 ###### Headers
 
 * client_id (Id to authenticate client)
@@ -94,15 +102,17 @@ Get Status information for an SMS
 * messageId (MessageId of the SMS. You will receive this on notification request.)
 
 ##### Success Responses
+
 ###### 200 Response (application/json)
 
 ```JSON
 {
-  "messageId":"0001",
-  "status":"201",
-  "description":"Delivered with delivery confirmation"
+  "messageId": "0001",
+  "status": "201",
+  "description": "Delivered with delivery confirmation"
 }
 ```
+
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -132,9 +142,11 @@ Get Status information for an SMS
 ### <a id='/messaging/v1/tokenvalidation/'></a> /messaging/v1/tokenvalidation/
 
 #### POST
+
 This call will start the SMS Token validation process by sending a validation token to an MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify the user recieved the validation token by calling *Validate SMS Token*.
 
 ##### Request
+
 ###### Headers
 
 * client_id (Id to authenticate client)
@@ -145,13 +157,14 @@ This call will start the SMS Token validation process by sending a validation to
 
 ```JSON
 {
-  "to":"+41791544781",
-  "text":"Verification code: %TOKEN% \r\n Expires in 60 seconds.",
-  "tokenType":"SHORT_ALPHANUMERIC",
-  "expireTime":60,
-  "tokenLength":6
+  "to": "+41791544781",
+  "text": "Verification code: %TOKEN% \r\n Expires in 60 seconds.",
+  "tokenType": "SHORT_ALPHANUMERIC",
+  "expireTime": 60,
+  "tokenLength": 6
 }
 ```
+
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -194,9 +207,10 @@ This call will start the SMS Token validation process by sending a validation to
 ```
 
 ##### Success Responses
+
 ###### 201 Response
 
-```
+```JSON
 no content
 ```
 
@@ -207,9 +221,11 @@ no content
 ### <a id='/messaging/v1/tokenvalidation/{msisdn}/{token}'></a> /messaging/v1/tokenvalidation/{msisdn}/{token}
 
 #### GET
+
 Validate the token sent to the MSISDN number by the *Send SMS Token* call. This call is made after the *Send SMS Token* call to validate the token sent to the end user via SMS.
 
 ##### Request
+
 ###### Headers
 
 * client_id (Id to authenticate client)
@@ -221,6 +237,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 * token (Token to verify.)
 
 ##### Success Responses
+
 ###### 200 Response
 
 ```JSON
@@ -228,6 +245,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
   "validation": "SUCCESS"
 }
 ```
+
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -290,7 +308,9 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 ### Error Response Examples
+
 #### <a id='400'></a> **400** (Bad Request. Invalid request.)
+
 ```JSON
 {
   "status": "400",
@@ -301,6 +321,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='401'></a> **401** (Unauthorized. No permission to resource or invalid api key.)
+
 ```JSON
 {
   "status": "401",
@@ -311,6 +332,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='403'></a> **403** (Forbidden. No permission for requested resource.)
+
 ```JSON
 {
   "status": "403",
@@ -321,6 +343,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='404'></a> **404** (Not Found. The server has not found anything matching the Request-URI.)
+
 ```JSON
 {
   "status": "404",
@@ -331,6 +354,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='405'></a> **405** (Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.)
+
 ```JSON
 {
   "status": "405",
@@ -341,6 +365,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='406'></a> **406** (Invalid Header Accept. The provided Accept-type is not equal the accepted. E.g. application/zip instead of text/json.)
+
 ```JSON
 {
   "status": "406",
@@ -351,6 +376,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='429'></a> **429** (Too Many Requests. Quota for this service has been exhausted. Message must contain further details.)
+
 ```JSON
 {
   "status": "429",
@@ -361,6 +387,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='500'></a> **500** (Internal Server Error. Server is misconfigured, or generic error message.)
+
 ```JSON
 {
   "status": "500",
@@ -371,6 +398,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ```
 
 #### <a id='503'></a> **503** (Service Unavailable. The server is currently unable to handle the request due to temporary overloading or maintenance. Typically back-end is unavailable.)
+
 ```JSON
 {
   "status": "503",
