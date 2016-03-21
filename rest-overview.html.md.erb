@@ -1,7 +1,9 @@
-# REST Overview
+---
+title: REST Overview
+---
 
-##What is REST?
-REST stands for <b>RE</b>presentational <b>S</b>tate <b>T</b>ransfer, which describes the architectural style of using HTTP to make remote procedure calls. Instead of using a heavy RPC mechanisms such as XML-RPC or SOAP, a REST web API uses the design of the HTTP protocol to define the remote methods.
+## <a id='what-is-rest'></a> What is REST?
+REST stands for **RE**presentational **S**tate **T**ransfer, which describes the architectural style of using HTTP to make remote procedure calls. Instead of using a heavy RPC mechanisms such as XML-RPC or SOAP, a REST web API uses the design of the HTTP protocol to define the remote methods.
 
 Almost everyone with a technical background understands what an HTTP GET call is, but it is less understood that HTTP has a vocabulary of operations that is very similar to the CRUD calls needed to maintain the state of entities. What most people call an URL is often called a resource in REST. Each resource can be called with a given operation which is called a HTTP method. Here is a list of the most common HTTP methods called in REST and the CRUD equivalent:
 
@@ -12,7 +14,7 @@ Almost everyone with a technical background understands what an HTTP GET call is
 |     PUT        |    Update   |
 |   DELETE   |     Delete    |
 
-##REST Example: User API
+## <a id='example'></a> REST Example: User API
 
 Let's go through an example of a fictional REST API for managing users. The following table shows the different resources and methods to manipulate user entities:
 
@@ -77,7 +79,7 @@ Let's go through an example of a fictional REST API for managing users. The foll
 	</tbody>
 </table>
 
-##Why REST?
+## <a id='why-rest'></a> Why REST?
 Swisscom has decided to expose services via REST due to the simple nature of REST APIs for the following reasons:
 
 * Easy to understand: Instead of using a more complex RPC mechanism such as SOAP, a REST API helps developers get up and running quickly. REST is easy to read and understand, and can be tested by using a standard browser.
