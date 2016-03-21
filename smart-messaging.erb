@@ -3,6 +3,8 @@ title: SmartMessaging API
 owner: API
 ---
 
+<strong><%= modified_date %></strong>
+
 ## <a id='overview'></a> Overview
 
 The SmartMessaging API provides different resources around the topic of mobile messaging.
@@ -13,7 +15,7 @@ Resource to send an SMS. It is also possible to receive a status notification.
 ### Token Validation
 Simple resource to validate a phone number by token. To validate a number, a well specified SMS message with an included textual token will be sent to your customer's mobile. Now the customer is able to forward this token to your service (HTML from, Mail, Callcenter). After a quick validation by this resource, you can be sure that phone number belongs to your customer.
 
-## <a id='API'></a> API - Resources
+## <a id='API'></a> API Resources
 
 ### <a id='/messaging/v1/sms'></a> /messaging/v1/sms/
 
@@ -23,9 +25,9 @@ Send an SMS
 ##### Request
 ###### Headers
 
- - client_id (Id to authenticate client)
- - Content-Type (application/json)
- - Accept (application/json)
+* client_id (Id to authenticate client)
+* Content-Type (application/json)
+* Accept (application/json)
 
 ###### Body (application/json)
 
@@ -84,12 +86,12 @@ Get Status information for an SMS
 ##### Request
 ###### Headers
 
- - client_id (Id to authenticate client)
- - Accept (application/json)
+* client_id (Id to authenticate client)
+* Accept (application/json)
 
 ###### URI Parameters
 
- - messageId (MessageId of the SMS. You will receive this on notification request.)
+* messageId (MessageId of the SMS. You will receive this on notification request.)
 
 ##### Success Responses
 ###### 200 Response (application/json)
@@ -135,9 +137,9 @@ This call will start the SMS Token validation process by sending a validation to
 ##### Request
 ###### Headers
 
- - client_id (Id to authenticate client)
- - Content-Type (application/json)
- - Accept (application/json)
+* client_id (Id to authenticate client)
+* Content-Type (application/json)
+* Accept (application/json)
 
 ###### Body (application/json)
 
@@ -210,13 +212,13 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ##### Request
 ###### Headers
 
- - client_id (Id to authenticate client)
- - Accept (application/json)
+* client_id (Id to authenticate client)
+* Accept (application/json)
 
 ###### URI Parameters
 
- - msisdn (The token depending phone number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.)
- - token (Token to verify.)
+* msisdn (The token depending phone number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.)
+* token (Token to verify.)
 
 ##### Success Responses
 ###### 200 Response
@@ -249,7 +251,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 [400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406),  [500](#500), [503](#503)
 
-## <a id='error-handling'></a> API - Error Handling
+## <a id='error-handling'></a> Error Handling
 
 ### Error Response Schema
 
