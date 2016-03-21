@@ -15,90 +15,102 @@ title: SmartMessaging API
 
 ## <a id='overview'></a> Overview
 
-The SmartMessaging API provides different resources around the topic mobile messaging.
+The SmartMessaging API provides different resources around the topic of mobile messaging.
 
-**Sms**
-Resource to send a SMS. It is also possible to receive a status notification.
+### SMS
+Resource to send an SMS. It is also possible to receive a status notification.
 
-**Token Validation**
-Simple  resource to validate a phone number by token.  To validate a number a well specified SMS message with included textual token will be sent to your customers mobile. Now the customer is able forward this token to your service (HTML from, Mail, Callcenter). After a quick validation by this resource you can be sure that phone number depends to your customer.
+### Token Validation
+Simple  resource to validate a phone number by token. To validate a number, a well specified SMS message with an included textual token will be sent to your customer's mobile. Now the customer is able to forward this token to your service (HTML from, Mail, Callcenter). After a quick validation by this resource, you can be sure that phone number belongs to your customer.
 
 ## <a id='API'></a> API - Resources
 
 ### <a id='/messaging/v1/sms'></a> /messaging/v1/sms/
 
-#### **post**: Send an SMS
+#### **POST**: Send an SMS
 
-##### **Request**
-###### **Headers**
+##### Request
+###### Headers
 
  - client_id (Id to authenticate client)
  - Content-Type (application/json)
  - Accept (application/json)
 
-###### **Body** (application/json)
-<pre><code>{
+###### Body (application/json)
+
+```language-json
+{
 	"from" : "Swisscom",
 	"to" : "+4171234567",
 	"text" : "Greetings from Swisscom!"
 	"callbackUrl" : "http://notification.com/service"
-}</code></pre>
-<pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object",
-    "required": [
-      "to", "text"
-    ],
-    "properties": {
-        "from": {
-            "description": "Sender name or number. Valid MSISDN number or alpha numeric text with max. 11 Characters",
-            "type": "string"
-        },
-        "to": {
-            "description": "Recipient number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.",
-            "type": "string"
-        },
-        "text": {
-            "description": "Appears as text in SMS.",
-            "type": "string"
-        },
-        "callbackUrl": {
-            "description": "A valid callback URL (HTTP) for delivery notification. The notification call will be send (PUT method with the header.location which contains messageID) for each SMS status change",
-            "type": "string"
-        }
+}
+```
+```language-json
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "required": [
+    "to", "text"
+  ],
+  "properties": {
+    "from": {
+      "description": "Sender name or number. Valid MSISDN number or alpha numeric text with max. 11 Characters",
+      "type": "string"
+    },
+    "to": {
+      "description": "Recipient number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.",
+      "type": "string"
+    },
+    "text": {
+      "description": "Appears as text in SMS.",
+      "type": "string"
+    },
+    "callbackUrl": {
+      "description": "A valid callback URL (HTTP) for delivery notification. The notification call will be send (PUT method with the header.location which contains messageID) for each SMS status change",
+      "type": "string"
     }
-}</code></pre>
+  }
+}
+```
 
-##### **Success Responses**
-###### **201 Response**
-<pre><code>no content</code></pre>
+##### Success Responses
+###### 201 Response
+
+```
+no content
+```
 
 ##### **Error Responses**
 
-[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406), [429](#429), [500](#500), [503](#503),
+[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406), [429](#429), [500](#500), [503](#503)
 
 ### <a id='/messaging/v1/sms/{messageId}'></a> /messaging/v1/sms/{messageId}
 
-#### **get**: Get Status information for a SMS.
+#### **GET**: Get Status information for an SMS
 
-##### **Request**
-###### **Headers**
+##### Request
+###### Headers
 
  - client_id (Id to authenticate client)
  - Accept (application/json)
 
-###### **URI Parameters**
- - messageId (messageId of SMS. You will receive this is on notification request.)
+###### URI Parameters
 
-##### **Success Responses**
-###### **200 Response (application/json)**
-<pre><code>{
+ - messageId (MessageId of the SMS. You will receive this on notification request.)
+
+##### Success Responses
+###### 200 Response (application/json)
+
+```language-json
+{
   "messageId":"0001",
   "status":"201",
   "description":"Delivered with delivery confirmation"
-}</code></pre>
-
-<pre><code>{
+}
+```
+```language-json
+{
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
   "required": [
@@ -116,123 +128,139 @@ Simple  resource to validate a phone number by token.  To validate a number a we
       "type": "string"
     }
   }
-}</code></pre>
+}
+```
 
-##### **Error Responses**
+##### Error Responses
 
-[401](#401), [403](#403), [404](#404), [405](#405), [500](#500), [503](#503),
+[401](#401), [403](#403), [404](#404), [405](#405), [500](#500), [503](#503)
 
 ### <a id='/messaging/v1/tokenvalidation/'></a> /messaging/v1/tokenvalidation/
 
-#### **post**: This call will start the SMS Token validation process by sending a validation token to a MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify the user recieved the validation token by calling Validate SMS Token.
+#### **POST**: This call will start the SMS Token validation process by sending a validation token to a MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify the user recieved the validation token by calling Validate SMS Token.
 
-##### **Request**
-###### **Headers**
+##### Request
+###### Headers
 
  - client_id (Id to authenticate client)
  - Content-Type (application/json)
  - Accept (application/json)
 
-###### **Body** (application/json)
-<pre><code>{
-   "to":"+41791544781",
-   "text":"Verification code: %TOKEN% \r\n Expires in 60 seconds.",
-   "tokenType":"SHORT_ALPHANUMERIC",
-   "expireTime":60,
-   "tokenLength":6
-}</code></pre>
-<pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object" ,
-    "required": [
-      "to"
-    ],
-    "properties": {
-        "to": {
-            "description": "Mobile number which should be verified. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default. ",
-            "type": "string"
-        },
-        "text": {
-            "description": "Appears as text in SMS. %TOKEN% is the placeholder for the generated token.",
-            "type": "string"
-        },
-        "tokenType": {
-            "description": "Describes what kind of token should be generated.",
-            "enum": [
-                "SHORT_NUMERIC",
-                "SHORT_ALPHANUMERIC",
-                "SHORT_SMALL_AND_CAPITAL",
-                "LONG_CRYPTIC"
-            ]
-        },
-        "expireTime": {
-            "description": "Expire time of the token in seconds.",
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 86400
-        },
-        "tokenLength": {
-            "description": "The size of the token. It is mandatory for all SHORT_* tokenTypes.",
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 12
-        }
+###### Body (application/json)
+
+```language-json
+{
+  "to":"+41791544781",
+  "text":"Verification code: %TOKEN% \r\n Expires in 60 seconds.",
+  "tokenType":"SHORT_ALPHANUMERIC",
+  "expireTime":60,
+  "tokenLength":6
+}
+```
+```language-json
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object" ,
+  "required": [
+    "to"
+  ],
+  "properties": {
+    "to": {
+      "description": "Mobile number which should be verified. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default. ",
+      "type": "string"
+    },
+    "text": {
+      "description": "Appears as text in SMS. %TOKEN% is the placeholder for the generated token.",
+      "type": "string"
+    },
+    "tokenType": {
+      "description": "Describes what kind of token should be generated.",
+      "enum": [
+        "SHORT_NUMERIC",
+        "SHORT_ALPHANUMERIC",
+        "SHORT_SMALL_AND_CAPITAL",
+        "LONG_CRYPTIC"
+      ]
+    },
+    "expireTime": {
+      "description": "Expire time of the token in seconds.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 86400
+    },
+    "tokenLength": {
+      "description": "The size of the token. It is mandatory for all SHORT_* tokenTypes.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
     }
-}</code></pre>
+  }
+}
+```
 
-##### **Success Responses**
-###### **201 Response**
-<pre><code>no content</code></pre>
+##### Success Responses
+###### 201 Response
 
-##### **Error Responses**
+```
+no content
+```
 
-[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406), [429](#429), [500](#500), [503](#503),
+##### Error Responses
+
+[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406), [429](#429), [500](#500), [503](#503)
 
 ### <a id='/messaging/v1/tokenvalidation/{msisdn}/{token}'></a> /messaging/v1/tokenvalidation/{msisdn}/{token}
 
-#### **get**: Validate the token sent to the MSISDN number by the Send SMS Token call. This call is made after the Send SMS Token call to validate the token sent to the end user via SMS.
+#### **GET**: Validate the token sent to the MSISDN number by the Send SMS Token call. This call is made after the Send SMS Token call to validate the token sent to the end user via SMS.
 
-##### **Request**
-###### **Headers**
+##### Request
+###### Headers
 
  - client_id (Id to authenticate client)
  - Accept (application/json)
 
-###### **URI Parameters**
+###### URI Parameters
+
  - msisdn (The token depending phone number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.)
  - token (Token to verify.)
 
-##### **Success Responses**
-###### **200 Response**
-<pre><code>{
-    "validation": "SUCCESS"
-}</code></pre>
+##### Success Responses
+###### 200 Response
 
-<pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object" ,
-    "required": [
-        "validation"
-    ],
-    "properties": {
-        "validation": {
-            "description": "Whether token validation was successful",
-            "enum": [
-              "SUCCESS",
-              "FAILED"
-            ]
-        }
+```language-json
+{
+  "validation": "SUCCESS"
+}
+```
+```language-json
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object" ,
+  "required": [
+    "validation"
+  ],
+  "properties": {
+    "validation": {
+      "description": "Whether token validation was successful",
+      "enum": [
+        "SUCCESS",
+        "FAILED"
+      ]
     }
-}</code></pre>
+  }
+}
+```
 
-##### **Error Responses**
+##### Error Responses
 
-[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406),  [500](#500), [503](#503),
+[400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406),  [500](#500), [503](#503)
 
 ## <a id='error-handling'></a> API - Error Handling
 
-#### Error Response Schema
-<pre><code>{
+### Error Response Schema
+
+```language-json
+{
   "$schema": "http://json-schema.org/draft-03/schema",
   "type": "object" ,
   "properties": {
@@ -262,72 +290,99 @@ Simple  resource to validate a phone number by token.  To validate a number a we
       "required": false
     }
   }
-}  </code></pre>
+}
+```
 
-#### Error Response Examples
-##### <a id='400'></a> **400** (Bad Request. Invalid request.)
-<pre><code>{
+### Error Response Examples
+#### <a id='400'></a> **400** (Bad Request. Invalid request.)
+```language-json
+{
   "status": "400",
   "code": "INVALID_REQUEST",
   "message": "The request could not be understood due to malformed syntax. Correct the request syntax and try again.",
   "detail": ""
-}</code></pre>
-##### <a id='401'></a> **401** (Unauthorized. No permission to resource or invalid api key.)
-<pre><code>{
+}
+```
+
+#### <a id='401'></a> **401** (Unauthorized. No permission to resource or invalid api key.)
+```language-json
+{
   "status": "401",
   "code": "INVALID_AUTHENTICATION_CREDENTIALS",
   "message": "Authentication credentials missing or incorrect. Check that you are using the correct authentication method and that you have permission to the given resource and your app key is approved.",
   "detail": ""
-}</code></pre>
-##### <a id='403'></a> **403** (Forbidden. No permission for requested resource.)
-<pre><code>{
+}
+```
+
+#### <a id='403'></a> **403** (Forbidden. No permission for requested resource.)
+```language-json
+{
   "status": "403",
   "code": "FORBIDDEN_RESOURCE",
   "message": "The server understood the request, but is refusing to fulfill it. Check that you have permission to the given resource.",
   "detail": ""
-}</code></pre>
-##### <a id='404'></a> **404** (Not Found. The server has not found anything matching the Request-URI.)
-<pre><code>{
+}
+```
+
+#### <a id='404'></a> **404** (Not Found. The server has not found anything matching the Request-URI.)
+```language-json
+{
   "status": "404",
   "code": "INVALID_REQUEST_RESOURCE",
   "message": "The requested resource does not exist. Verify that the resource URI is correctly spelled.",
   "detail": ""
-}</code></pre>
-##### <a id='405'></a> **405** (Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.)
-<pre><code>{
+}
+```
+
+#### <a id='405'></a> **405** (Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.)
+```language-json
+{
   "status": "405",
   "code": "INVALID_REQUEST_METHOD",
   "message": "The resource is not accessible via the given method. Check the documentation or the Allow header for allowed methods.",
   "detail": ""
-}</code></pre>
-##### <a id='406'></a> **406** (Invalid Header Accept. The provided Accept-type is not equal the accepted. E.g. application/zip instead of text/json.)
-<pre><code>{
+}
+```
+
+#### <a id='406'></a> **406** (Invalid Header Accept. The provided Accept-type is not equal the accepted. E.g. application/zip instead of text/json.)
+```language-json
+{
   "status": "406",
   "code": "INVALID_HEADER_ACCEPT",
   "message": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request. Make sure the request has an Accept header with a media type supported by the API. Check the developer portal for supported media types.",
   "detail": ""
-}</code></pre>
-##### <a id='429'></a> **429** (Too Many Requests. Quota for this service has been exhausted. Message must contain further details.)
-<pre><code>{
+}
+```
+
+#### <a id='429'></a> **429** (Too Many Requests. Quota for this service has been exhausted. Message must contain further details.)
+```language-json
+{
   "status": "429",
   "code": "EXPIRED_QUOTA",
   "message": "Your quota for this service has been exhausted. Try again later or contact support at developer-support@swisscom.com.",
   "detail": ""
-}</code></pre>
-##### <a id='500'></a> **500** (Internal Server Error. Server is misconfigured, or generic error message.)
-<pre><code>{
+}
+```
+
+#### <a id='500'></a> **500** (Internal Server Error. Server is misconfigured, or generic error message.)
+```language-json
+{
   "status": "500",
   "code": "INTERNAL_SERVER_ERROR",
   "message": "The server encountered an unexpected condition which prevented it from fulfilling the request. Try again later or contact support at developer-support@swisscom.com.",
   "detail": ""
-}</code></pre>
-##### <a id='503'></a> **503** (Service Unavailable. The server is currently unable to handle the request due to temporary overloading or maintenance. Typically back-end is unavailable.)
-<pre><code>{
+}
+```
+
+#### <a id='503'></a> **503** (Service Unavailable. The server is currently unable to handle the request due to temporary overloading or maintenance. Typically back-end is unavailable.)
+```language-json
+{
   "status": "503",
   "code": "UNAVAILABLE_SERVICE",
   "message": "The server is currently unable to handle the request due to temporary overloading or maintenance. Try again later or contact support at developer-support@swisscom.com.",
   "detail": ""
-}</code></pre>
+}
+```
 
 ## <a id='authentication'></a> ClientId Authentication
 The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you booked the SmartSms service. For a valid authentication you have to set the ClientId as HTTP header "client_id". See also examples for details.
@@ -337,26 +392,26 @@ You can quickly make calls to the Swisscom APIs using [cURL](http://curl.haxx.se
 
 ### Sending SMS
 This first call shows how to send a SMS without optional parameter:
-<code>
+```language-bash
 curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"text\": \"hello world\"}"
-</code>
+```
 
 By default your registered mobile number is used as sender number. To display a different sender number you can set the "from" parameter. Notice: you need special permissions to use this parameter. Please contact our support team, to book this feature.
 
 If you need updates about the SMS state (e.g. SMS was received). You can set the "callBackUrl" parameter.  You will receive a HTTP PUT request on this URL, on any SMS state change.
-<code>
+```language-bash
 curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"from\": \"Swisscom\", \"text\": \"hello world\", \"callbackUrl\": \"http://mydomain.net/notification\"}"
-</code>
+```
 
 ### Token Validation
 
 If you want to verify the mobile number of a customer, you can simple send a SMS token with this request:
-<code>
+```language-bash
 curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST " https://api.swisscom.com/messaging/v1/sms/tokenvalidation" -d "{\"to\":\"+417xxxxxxxx\",\"text\":\"Take this token: %TOKEN%\", \"tokenType\":\"SHORT_NUMERIC\",\"expireTime\":120,\"tokenLength\":6}"
- </code>
+```>
 
 The customer receives the token on his mobile. After he types the token into your web form, you can do a verification with the following request:
 
-<code>
+```language-bash
 curl -ik -H "Accept: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X GET " https://api.swisscom.com/messaging/v1/sms/tokenvalidation/00417xxxxxxxx/%RECEIVED_TOKEN_GOES_HERE%"
-</code>
+```
