@@ -1,0 +1,62 @@
+---
+title: OAuth Implicit 
+owner: API
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> OAuth Implicit Tutorial
+
+**Note: The Swisscom OAuth is only usable if it is approved and granted from the API team - contact us via the [contact form](https://developer.swisscom.com/support)**
+
+This tutorial describes an easy way to get an OAuth authorization code & access token and shows the integration flow.
+
+Tools:
+
+* Google Chrome
+* Modify Headers Plugin for google Chrome
+* Localhost (How to setup a localhost on Windows)
+
+### 1. Get OAuth Implicit Token
+
+Open this URL in your browser - you need a valid client id.
+```
+https://consent.swisscom.com/c/oauth2/auth?response_type=token&redirect_uri=http%3A%2F%2Flocalhost&client_id=%YOUR_CLIENT_ID%
+```
+
+In this example http%3A%2F%2Flocalhost is used as redirect URL (URL encoded).
+
+![Implicit Consent URL](img/implicit_consent_url.png)
+
+After hitting the enter key the Swisscom Login page appears.
+
+#### 2. Login with given Swisscom credentials
+
+The user has to login with his Swisscom Credentials (username & password).
+
+![Swisscom login page](img/scloginstep2en.png)
+
+#### 3. Consent Page - Authorise
+
+After login successfully a consent page appears with a request to agree that this page/app has the permission to read the users information.
+
+![Swisscom Authorisation page request](img/consentenglish.png)
+
+It has to be configured with the API engineers what kind of information can be asked for, example: scope=read-basicprofile, read-birthdate etc. The browser redirects to the redirect URL (of step1) after confirming the consent page.
+The consent page will only appear if it was configured with an API engineer before. Otherwise the browser redirects to the redirect URL (of step1) directly.
+
+#### 4. Extract the access token of the URL
+
+The access token will be found in the redirect URL.
+
+![Extraction of the access token from the url](img/implicit_token_extraction.png)
+
+The expire time, the scopes and the language are appended in the URL next to the access token.
+
+#### 5. Ready to call an API with the new access token
+
+As example: User Profile API as curl call
+
+```
+curl -ik  -H "Authorization: Bearer jadskefdfjhksdf342eqbelDTubjFF5DrJ" -X GET "https://api.swisscom.com/v1/users/~/profile"
+```

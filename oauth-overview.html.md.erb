@@ -1,0 +1,106 @@
+---
+title: OAuth Overview 
+owner: API
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> What is Oauth?
+
+OAuth 2.0 is an open standard for authorization and it provides client applications a 'secure delegated access' to server resources on behalf of a resource owner. OAuth essentially allows access tokens to be issued to third-party clients by an authorization server, with the approval of the resource owner, or end-user. The client uses the access token to access our protected APIs.
+More information you can read at http://oauth.net/2/.
+
+If you are already familiar with OAuth, then all you really need to know about are the two authentication endpoints: 
+
+* authorization endpoint:  https://consent.swisscom.com/c/oauth2/oauth
+* token request endpoint: https://consent.swisscom.com/o/oauth2/token
+
+Before you begin to use an application, you will need a client id, redirect URI, and a client secret key. These details will be used to authenticate your application and verify that the API calls being made are valid.
+
+There are 3 ways to obtain an access token, which can be used instead of a client_id/API key, namely:
+
+* [Authorization Code (3-legged) Tutorial](./oauth-authorisation-code.html)
+* [Client Credentials (2-legged) Tutorial](./oauth-client-credentials.html)
+* [Implicit (2-legged) Tutorial](./oauth-implicit.html)
+
+### Authorization Code (3-legged)
+
+* Safest one
+
+* Able to authenticate both app and user
+
+* Allows to obtain a long-lived access token  renewed with a refresh token
+
+* Access and refresh token never reach the end user (stays at the web server)
+
+### Client Credentials (2-legged)
+
+* Used when the client has been developed by the same authority as the authorization server
+
+* For scenarios in which authenticating the end user is not required.
+
+* Able to authenticate the app (no user authorization).
+
+### Implicit (2-legged)
+
+* For browser-based or mobile apps, typically running JavaScript
+
+* Able to authenticate the User only (not the app! any app could use the token => insecure)
+
+* Browser (or mobile app) receives access token, not the app server
+
+* No refresh token granted (because it's less secure)
+
+* Attention! This type of authorization should only be used if no other type of authorization is available. It is the least secure because the access token is exposed (and therefore vulnerable) on the client side.
+
+##  How do i use it?
+
+* Authorization Code: First, you need an authorization code ```c/oauth2/auth``` before you can call the get access token method. See the **[OAuth Authorization Code Tutorial](./oauth-authorisation-code.html)** and learn how to get an authorization code and how to use it.
+
+* Client Credetials: Call the access token method directly. No code is needed. It is important to use ```grant_type=client_credential```. Have look at the **[OAuth Client Credential Tutorial](./oauth-client-credentails.html)**.
+
+* Implicit: Use the ```c/oauth2/auth``` method like to get the authorization code, except the response_type has changed to response_type=token (instead of response_type=code). See the **[OAuth Implict Tutorial](./oauth-implicit.html)**  and learn how to use this method. The access token will be returned in the redirect URL directly.
+  
+![OAuth grand types description](img/oauth10.png)
+
+The POST method token with grant_type=refresh_token has to be used, if the time to live of the access token has been expired. 
+TTL (default):
+
+* access_token: 1209600000ms (14 days)
+
+* refresh_token: 31536000000ms (365 days)
+
+It is possible to get information about the access and refresh token by calling the GET method info.
+Sometimes an access token has to  be revoken. In this case use the GET method revoke.
+
+##  <a id='OAuth_API'></a> OAuth API documentation (https://consent.swisscom.com/)
+
+---
+
+### /c/oauth2
+
+#### /c/oauth2/auth
+Used to obtain the authorization codes (OAuth 3-legged) or the access token (implicit 2-legged)
+
+* **get**: Used to obtain the authorization codes or the access token (implicit)
+
+### /o/oauth2
+
+#### /o/oauth2/token
+Used for obtaining access token (authorization code grant), refreshing token, revoking token, obtaining token information.
+
+* **get**: Used for obtaining access token and sometimes also a refresh token with authorization code grant.
+
+* **post**: Used for obtaining access token and sometimes also a refresh token with authorization code, refresh token, or client credentials grant.
+
+#### /o/oauth2/token/info
+Used for obtaining information about an access or refresh token.
+
+* **get** *(secured)*: Used for obtaining information about an access or refresh token.
+
+#### /o/oauth2/token/revoke
+Used for revoking an access token.
+
+* **get** *(secured)*: Used for revoking an access token.
+
+[HTML version](./html/oauth2.html)

@@ -1,0 +1,78 @@
+---
+title: OAuth Authorization Code 
+owner: API
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> OAuth Authorization Code
+
+**Note: The Swisscom OAuth is only usable if it is approved and granted from the API team - contact us via the [contact form](https://developer.swisscom.com/support)**
+
+This tutorial describes an easy way to get an OAuth authorization code & access token and shows the integration flow.
+
+Tools:
+
+* Google Chrome
+* Modify Headers Plugin for google Chrome
+* Localhost (How to setup a localhost on Windows)
+
+### 1. Get OAuth Authorization Code
+
+Open this URL in your browser - you need a valid client id.
+```
+https://consent.swisscom.com/c/oauth2/auth?response_type=code&redirect_uri=https%3A%2F%2Flocalhost&client_id=%YOUR_CLIENT_ID%&lang=en
+```
+
+You will see the Swisscom login
+
+![Swisscom login page](img/scloginstep2en.png)
+
+#### 2. Login with given Swisscom credentials
+
+The user has to login with his Swisscom Credentials (username & password).
+
+#### 3. Consent Page - Authorise
+
+After login successfully a consent page appears with a request to agree that this page/app has the permission to read the users information.
+
+![Swisscom Authorization page request](img/consentenglish.png)
+
+It has to be configured with the API engineers what kind of information can be asked for, example: scope=read-basicprofile, read-birthdate etc. The browser redirects to the redirect URL (of step1) after confirming the consent page.
+The consent page will only appear if it was configured with an API engineer before. Otherwise the browser redirects to the redirect URL (of step1) directly.
+
+#### 4. You will be redirected to: ```https://localhost/?code=5du16Pu6&scope=...```
+
+#### 5. Extract the code parameter
+
+In this Example it is “5du16Pu6”
+
+#### 6. Get the OAuth Token
+
+##### a) Set the Authorization header in Browser: ```Authorization: Basic %YOUR_CLIENT_ID%:%YOUR_CLIENT_ID_SECRET%(As BASE64) (OAuth)``` and enabled it
+
+![Set Authorisation header](img/modifyh.png)
+
+##### b) Get the token, by calling the URL:
+
+```
+https://consent.swisscom.com/o/oauth2/token?grant_type=authorization_code&code=5du16Pu6&redirect_uri=https%3A%2F%2Flocalhost 
+```
+
+You should see the token in the JSON response. 
+
+![Token generation response](img/token_generation_response.png)
+
+NOTE: If you see 401 with “INVALID_AUTHENTICATION_CREDENTIALS” make sure that you set and enabled the Authentication header, see step (a).
+
+##### c) extract the token
+
+In this example the token is: “kVhlBP24TjemCzvmSxSvkpa6ZUwv”
+
+#### 7) Now you are ready to call an API that needs an OAuth Token
+
+As example: User Profile API as curl call
+
+```
+curl -ik  -H "Authorization: Bearer kVhlBP24TjemCzvmSxSvkpa6ZUwv" -X GET "https://api.swisscom.com/v1/users/~/profile"
+```
