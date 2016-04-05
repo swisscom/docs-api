@@ -7,19 +7,21 @@ owner: API
 
 ## <a id='overview'></a> OAuth Authorization Code
 
-**Note: The Swisscom OAuth is only usable if it is approved and granted from the API team - contact us via the [contact form](https://developer.swisscom.com/support)**
+<p class="note">
+  <strong>Note</strong>: The Swisscom OAuth is only usable if it is approved and granted by the API team - contact us via the <a href="https://developer.swisscom.com/support" target="_blank">contact form</a>.
+</p>
 
-This tutorial describes an easy way to get an OAuth authorization code & access token and shows the integration flow.
+This tutorial describes an easy way to get an OAuth authorization code &amp; access token and shows the integration flow.
 
 Tools:
 
 * Google Chrome
 * Modify Headers Plugin for google Chrome
-* Localhost (How to setup a localhost on Windows)
+* Localhost Server - <a href="https://www.youtube.com/watch?v=Ybn6Q92m4xg" target="_blank">How to setup a localhost server on Windows</a> 
 
 ### 1. Get OAuth Authorization Code
 
-Open this URL in your browser - you need a valid client id.
+Open this URL in the browser - you need a valid client id.
 ```
 https://consent.swisscom.com/c/oauth2/auth?response_type=code&redirect_uri=https%3A%2F%2Flocalhost&client_id=%YOUR_CLIENT_ID%&lang=en
 ```
@@ -30,11 +32,11 @@ You will see the Swisscom login
 
 #### 2. Login with given Swisscom credentials
 
-The user has to login with his Swisscom Credentials (username & password).
+The user has to login with his Swisscom Credentials (username and password).
 
-#### 3. Consent Page - Authorise
+#### 3. Consent Page - Authorize
 
-After login successfully a consent page appears with a request to agree that this page/app has the permission to read the users information.
+After successful login a consent page appears with a request to agree that this page/app has the permission to read the users information.
 
 ![Swisscom Authorization page request](img/consentenglish.png)
 
@@ -45,11 +47,11 @@ The consent page will only appear if it was configured with an API engineer befo
 
 #### 5. Extract the code parameter
 
-In this Example it is “5du16Pu6”
+In this example it is “5du16Pu6”
 
 #### 6. Get the OAuth Token
 
-##### a) Set the Authorization header in Browser: ```Authorization: Basic %YOUR_CLIENT_ID%:%YOUR_CLIENT_ID_SECRET%(As BASE64) (OAuth)``` and enabled it
+##### a) Set the Authorization header in the browser: ```Authorization: Basic %YOUR_CLIENT_ID%:%YOUR_CLIENT_ID_SECRET%(As BASE64) (OAuth)``` and enable it
 
 ![Set Authorisation header](img/modifyh.png)
 
@@ -71,8 +73,8 @@ In this example the token is: “kVhlBP24TjemCzvmSxSvkpa6ZUwv”
 
 #### 7) Now you are ready to call an API that needs an OAuth Token
 
-As example: User Profile API as curl call
+As example: Voice Voip Numbers as a curl call
 
-```
-curl -ik  -H "Authorization: Bearer kVhlBP24TjemCzvmSxSvkpa6ZUwv" -X GET "https://api.swisscom.com/v1/users/~/profile"
-```
+<pre class="terminal>
+curl -ik  -H "Authorization: Bearer kVhlBP24TjemCzvmSxSvkpa6ZUwv" -X GET "https://api.swisscom.com/voice/v1/voip/me/numbers"
+</pre>

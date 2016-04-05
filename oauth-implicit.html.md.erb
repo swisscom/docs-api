@@ -7,9 +7,11 @@ owner: API
 
 ## <a id='overview'></a> OAuth Implicit Tutorial
 
-**Note: The Swisscom OAuth is only usable if it is approved and granted from the API team - contact us via the [contact form](https://developer.swisscom.com/support)**
+<p class="note">
+  <strong>Note</strong>: The Swisscom OAuth is only usable if it is approved and granted by the API team - contact us via the <a href="https://developer.swisscom.com/support" target="_blank">contact form</a>.
+</p>
 
-This tutorial describes an easy way to get an OAuth authorization code & access token and shows the integration flow.
+This tutorial describes an easy way to get an OAuth authorization code &amp; access token and shows the integration flow.
 
 Tools:
 
@@ -24,7 +26,7 @@ Open this URL in your browser - you need a valid client id.
 https://consent.swisscom.com/c/oauth2/auth?response_type=token&redirect_uri=http%3A%2F%2Flocalhost&client_id=%YOUR_CLIENT_ID%
 ```
 
-In this example http%3A%2F%2Flocalhost is used as redirect URL (URL encoded).
+In this example ```http%3A%2F%2Flocalhost``` is used as redirect URL (URL encoded).
 
 ![Implicit Consent URL](img/implicit_consent_url.png)
 
@@ -32,11 +34,11 @@ After hitting the enter key the Swisscom Login page appears.
 
 #### 2. Login with given Swisscom credentials
 
-The user has to login with his Swisscom Credentials (username & password).
+The user has to login with his Swisscom Credentials (username and password).
 
 ![Swisscom login page](img/scloginstep2en.png)
 
-#### 3. Consent Page - Authorise
+#### 3. Consent Page - Authorize
 
 After login successfully a consent page appears with a request to agree that this page/app has the permission to read the users information.
 
@@ -55,8 +57,8 @@ The expire time, the scopes and the language are appended in the URL next to the
 
 #### 5. Ready to call an API with the new access token
 
-As example: User Profile API as curl call
+As example: Voice Voip Numbers as a curl call
 
-```
-curl -ik  -H "Authorization: Bearer jadskefdfjhksdf342eqbelDTubjFF5DrJ" -X GET "https://api.swisscom.com/v1/users/~/profile"
-```
+<pre class="terminal>
+curl -ik  -H "Authorization: Bearer jadskefdfjhksdf342eqbelDTubjFF5DrJ" -X GET "https://api.swisscom.com/voice/v1/voip/me/numbers"
+</pre>
