@@ -33,7 +33,7 @@ Send an SMS
 * Content-Type (application/json)
 * Accept (application/json)
 
-###### Body (application/json)
+###### Body Example (application/json)
 
 ```JSON
 {
@@ -43,7 +43,7 @@ Send an SMS
   "callbackUrl": "http://notification.com/service"
 }
 ```
-
+###### Body Schema (application/json)
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -103,7 +103,7 @@ Get Status information for an SMS
 
 ##### Success Responses
 
-###### 200 Response (application/json)
+###### 201 Response Example (application/json)
 
 ```JSON
 {
@@ -112,7 +112,7 @@ Get Status information for an SMS
   "description": "Delivered with delivery confirmation"
 }
 ```
-
+###### 201 Response Schema (application/json)
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -153,7 +153,7 @@ This call will start the SMS Token validation process by sending a validation to
 * Content-Type (application/json)
 * Accept (application/json)
 
-###### Body (application/json)
+###### Body Example (application/json)
 
 ```JSON
 {
@@ -164,7 +164,7 @@ This call will start the SMS Token validation process by sending a validation to
   "tokenLength": 6
 }
 ```
-
+###### Body Schema (application/json)
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -238,14 +238,13 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 ##### Success Responses
 
-###### 200 Response
-
+###### 200 Response Example (application/json)
 ```JSON
 {
   "validation": "SUCCESS"
 }
 ```
-
+###### 200 Response Schema (application/json)
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -272,7 +271,6 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ## <a id='error-handling'></a> Error Handling
 
 ### Error Response Schema
-
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-03/schema",
