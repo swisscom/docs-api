@@ -406,9 +406,14 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
+
+
 ## <a id='authentication'></a> ClientId Authentication
 
-The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you booked the SmartSms service. For a valid authentication, you have to set the ClientId as HTTP header `client_id`. See also examples for details.
+The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you bind the SmartSms service to your app. For a valid authentication, you have to set the ClientId as HTTP header `client_id` in your REST request. See also examples for details.
+
+![SmartSmsServiceKey](./img/SmartSmsServiceKey.png)
+
 
 ## <a id='examples'></a> Examples
 
