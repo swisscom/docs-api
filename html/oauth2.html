@@ -1,0 +1,1080 @@
+<!DOCTYPE HTML><html><head><title>OAuth API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.4.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>OAuth API documentation</h1><p>https://consent.swisscom.com/</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="c_oauth2" class="panel-title">/c/oauth2</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_c_oauth2_auth"><span class="parent">/c/oauth2</span>/auth</a> <span class="methods"><a href="#c_oauth2_auth_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_c_oauth2_auth" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Used to obtain the authorization codes (OAuth 3-legged) or the access token (implicit 2-legged)</p></div><div class="list-group"><div onclick="window.location.href = '#c_oauth2_auth_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Used to obtain the authorization codes or the access token (implicit)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="c_oauth2_auth_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/c/oauth2</span>/auth</h4></div><div class="modal-body"><div class="alert alert-info"><p>Used to obtain the authorization codes or the access token (implicit)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#c_oauth2_auth_get_request" data-toggle="tab">Request</a></li><li><a href="#c_oauth2_auth_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="c_oauth2_auth_get_request"><h3>Query Parameters</h3><ul><li><strong>response_type</strong>: <em>required (string)</em><p>"code" to get the authorization code or "token" to get the access token directly (implicit)</p></li><li><strong>redirect_uri</strong>: <em>required (string)</em><p>It redirects to this URI after sending the request.<br>Has to be url encoded</p></li><li><strong>client-id</strong>: <em>required (string)</em><p>Identifies the client by its client_id.</p></li></ul></div><div class="tab-pane" id="c_oauth2_auth_get_response"><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Moved Temporarly</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "400",
+    "code": "INVALID_PARAMETER",
+    "message": "The request could not be understood due to malformed syntax. Correct the request syntax and try again.",
+    "detail": "Missing or invalid response_type, missing or invalid redirect_uri",
+    "error": "invalid_grant"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "401",
+    "code": "UNAUTHORIZED",
+    "message": "...",
+    "detail": "In case of unsuccessful authentication",
+    "error": "invalid_grant"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="o_oauth2" class="panel-title">/o/oauth2</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_o_oauth2_token"><span class="parent">/o/oauth2</span>/token</a> <span class="methods"><a href="#o_oauth2_token_get"><span class="badge badge_get">get</span></a> <a href="#o_oauth2_token_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_o_oauth2_token" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Used for obtaining access token (authorization code grant), refreshing token, revoking token, obtaining token information.</p></div><div class="list-group"><div onclick="window.location.href = '#o_oauth2_token_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Used for obtaining access token and sometimes also a refresh token with authorization code grant.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#o_oauth2_token_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Used for obtaining access token and sometimes also a refresh token with authorization code, refresh token, or client credentials grant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="o_oauth2_token_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/o/oauth2</span>/token</h4></div><div class="modal-body"><div class="alert alert-info"><p>Used for obtaining access token and sometimes also a refresh token with authorization code grant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#o_oauth2_token_get_request" data-toggle="tab">Request</a></li><li><a href="#o_oauth2_token_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="o_oauth2_token_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Identifies the App with client_id and client_secret. They must be separated by colon and base64 encoded.</p><p><strong>Example</strong>:</p><pre>Basic cXdlcnR5OmFzZGY=</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>grant_type</strong>: <em>required (string)</em><p>"authorization_code" to get access and refresh tokens with a code. ("refresh_token" or "client_credentials" must use the POST method instead).</p></li><li><strong>code</strong>: <em>(string)</em><p>Required if grant_type="authorization_code". The code obtained by the user after consent.</p></li><li><strong>redirect_uri</strong>: <em>(string)</em><p>Required if grant_type="authorization_code". The redirect_uri parameter given as input during consent (exact match needed).</p></li></ul></div><div class="tab-pane" id="o_oauth2_token_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object",
+    "properties": {
+        "access_token": {
+            "description": "The Access Token.",
+            "type": "string",
+            "required":true
+        },
+        "refresh_token": {
+            "description": "Refresh Token. Depends on app/product configuration whether present.",
+            "type": "string",
+            "required":false
+        },
+        "expires_in": {
+            "description": "Time in seconds indicating for how long the access token will be valid. Time depends on app/product configuration.",
+            "type": "string",
+            "required":true
+        },
+        "token_type": {
+            "description": "Token type. E.g., bearer",
+            "type": "string",
+            "required":true
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "access_token" : "2YotnFZFEjr1zCsicMWpAA",
+    "refresh_token" : "tGzv3JOkF0XG5Qx2TlKWIA",
+    "token_type" : "bearer",
+    "expires_in" : "3600"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "400",
+    "code": "INVALID_REFRESH_TOKEN",
+    "message": "Refresh token is invalid.",
+    "detail": "Refresh token is invalid, expired, revoked, was already refreshed, or was issued to another client.",
+    "error": "invalid_grant"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "401",
+    "code": "INVALID_REFRESH_TOKEN",
+    "message": "Refresh token is invalid.",
+    "detail": "Refresh token is invalid, expired, revoked, was already refreshed, or was issued to another client.",
+    "error": "invalid_grant"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Not Found. The server has not found anything matching the Request-URI.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "404",
+  "code": "INVALID_REQUEST_RESOURCE",
+  "message": "The requested resource does not exist. Verify that the resource URI is correctly spelled.",
+  "detail": ""
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "405",
+  "code": "INVALID_REQUEST_METHOD",
+  "message": "The resource is not accessible via the given method. Check the documentation or the Allow header for allowed methods.",
+  "detail": ""
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="o_oauth2_token_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/o/oauth2</span>/token</h4></div><div class="modal-body"><div class="alert alert-info"><p>Used for obtaining access token and sometimes also a refresh token with authorization code, refresh token, or client credentials grant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#o_oauth2_token_post_request" data-toggle="tab">Request</a></li><li><a href="#o_oauth2_token_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="o_oauth2_token_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Identifies the App with client_id and client_secret. They must be separated by colon and base64 encoded.</p><p><strong>Example</strong>:</p><pre>Basic cXdlcnR5OmFzZGY=</pre></li></ul><h3>Body</h3><p><strong>Type: application/x-www-form-urlencoded</strong></p><strong>Form Parameters</strong><ul><li><strong>grant_type</strong>: <em>required (string)</em><p>"authorization_code" to get access and refresh tokens with a code. "refresh_token" to get access and refresh tokens with a refresh token. "client_credentials" to get an access token with client credentials grant.</p></li><li><strong>refresh_token</strong>: <em>(string)</em><p>Required if grant_type="refresh_token". The refresh token.</p></li><li><strong>code</strong>: <em>(string)</em><p>Required if grant_type="authorization_code". The code obtained by the user after consent.</p></li><li><strong>redirect_uri</strong>: <em>(string)</em><p>Required if grant_type="authorization_code". The redirect_uri parameter given as input during consent.</p></li><li><strong>scope</strong>: <em>(string)</em><p>Space-separated list of scopes, if it is desired to grant less scopes than configured for the app.</p></li></ul></div><div class="tab-pane" id="o_oauth2_token_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object",
+    "properties": {
+        "access_token": {
+            "description": "The Access Token.",
+            "type": "string",
+            "required":true
+        },
+        "refresh_token": {
+            "description": "Refresh Token. Depends on configuration whether present. Never given out if client credentials grant type.",
+            "type": "string",
+            "required":false
+        },
+        "expires_in": {
+            "description": "Time in seconds indicating for how long the access token will be valid.",
+            "type": "string",
+            "required":true
+        },
+        "token_type": {
+            "description": "Token type. E.g., bearer",
+            "type": "string",
+            "required":true
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "access_token" : "2YotnFZFEjr1zCsicMWpAA",
+    "refresh_token" : "tGzv3JOkF0XG5Qx2TlKWIA",
+    "token_type" : "bearer",
+    "expires_in" : "3600"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "400",
+    "code": "INVALID_REFRESH_TOKEN",
+    "message": "Refresh token is invalid.",
+    "detail": "Refresh token is invalid, expired, revoked, was already refreshed, or was issued to another client.",
+    "error": "invalid_grant"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "401",
+    "code": "INVALID_REFRESH_TOKEN",
+    "message": "Refresh token is invalid.",
+    "detail": "Refresh token is invalid, expired, revoked, was already refreshed, or was issued to another client.",
+    "error": "invalid_grant"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Not Found. The server has not found anything matching the Request-URI.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "404",
+  "code": "INVALID_REQUEST_RESOURCE",
+  "message": "The requested resource does not exist. Verify that the resource URI is correctly spelled.",
+  "detail": ""
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "405",
+  "code": "INVALID_REQUEST_METHOD",
+  "message": "The resource is not accessible via the given method. Check the documentation or the Allow header for allowed methods.",
+  "detail": ""
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request has a media type which the server or resource does not support. Please set the Content-Type header with a value supported by the API (e.g. application/json).</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "415",
+  "code": "UNSUPPORTED_MEDIA_TYPE",
+  "message": "The request entity has a media type which the server or resource does not support. Please set the Content-Type header with a value supported by the API (e.g. application/json).",
+  "detail": ""
+}
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_o_oauth2_token_info"><span class="parent">/o/oauth2/token</span>/info</a> <span class="methods"><a href="#o_oauth2_token_info_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_o_oauth2_token_info" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Used for obtaining information about an access or refresh token.</p></div><div class="list-group"><div onclick="window.location.href = '#o_oauth2_token_info_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Used for obtaining information about an access or refresh token.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="o_oauth2_token_info_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/o/oauth2/token</span>/info</h4></div><div class="modal-body"><div class="alert alert-info"><p>Used for obtaining information about an access or refresh token.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>The Swisscom API uses OAuth 2 for authentication. An authorization header containing a valid access_token must be included in every request.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#o_oauth2_token_info_get_request" data-toggle="tab">Request</a></li><li><a href="#o_oauth2_token_info_get_response" data-toggle="tab">Response</a></li><li><a href="#o_oauth2_token_info_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="o_oauth2_token_info_get_request"><h3>Headers</h3><ul><li><strong>The Authorization OAuth2 Access Token</strong>: <em>required (string)</em><p>The Authorization OAuth2 access token. The access token, which was retrieved through OAuth2 API, must be set after the Bearer string. The parameter is marked as {access_token}</p><p><strong>Example</strong>:</p><pre>Bearer {access_token}
+</pre></li></ul></div><div class="tab-pane" id="o_oauth2_token_info_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object",
+    "properties": {
+        "type": {
+            "description": "Type. E.g., accesstoken",
+            "type": "string",
+            "required":true
+        },
+        "application_name": {
+            "description": "Application name",
+            "type": "string",
+            "required":true
+        },
+        "client_id": {
+            "description": "Indentifies the developer app.",
+            "type": "string",
+            "required":true
+        }, 
+        "scope": {
+            "description": "Scope for which the token is valid.",
+            "type": "string",
+            "required":true
+        },
+        "token_type": {
+            "description": "always bearer",
+            "type": "string",
+            "required":true
+        },
+        "issued_at": {
+            "description": "Timestamp when the token was issued (ISO 8601)",
+            "type": "string",
+            "required":true
+        },
+        "expires_in": {
+            "description": "Time when the token expires.",
+            "type": "string",
+            "required":true
+        },
+        "attributes": {
+            "description": "Attributes",
+            "type": "object",
+            "required":false,
+            "items" : {
+                "account_number" : {
+                    "description": "BW Accountnumber",
+                    "type": "string",
+                    "required":true
+                },
+                "auth_level" : {
+                    "description": "Authorization level",
+                    "type": "string",
+                    "required":true
+                },
+                "client_ip" : {
+                    "description": "Client&#39;s IP address",
+                    "type": "string",
+                    "required":true
+                },
+                "scn" : {
+                    "description": "Swisscom Customer Number",
+                    "type": "string",
+                    "required":true
+                },
+                "user_agent" : {
+                    "description": "User agent",
+                    "type": "string",
+                    "required":true
+                },
+                "used_msisdn" : {
+                    "description": "MSISDN",
+                    "type": "string",
+                    "required":true
+                },
+                "username" : {
+                    "description": "Username",
+                    "type": "string",
+                    "required":true
+                },                                              
+                "creator" : {
+                    "description": "Attributes about the token creator",
+                    "type": "object",
+                    "required":true,
+                    "items":{
+                        "scn" : {
+                            "description": "SCN of the creator of the access token. The creator is who requests an access token",
+                            "type": "string",
+                            "required":true
+                        },
+                        "accountNumber" : {
+                            "description": "Account number of the creator. The creator is who requests an access token",
+                            "type": "string",
+                            "required":true
+                        }
+                    }
+                },
+                "payment" : {
+                    "description" : "Attributes about the token creator",
+                    "type" : "object",
+                    "required" : true,
+                    "items" : {
+                        "clearingType" : {
+                            "description": "Clearing type",
+                            "type": "string",
+                            "required":true
+                        },
+                        "clearingId" : {
+                            "description": "Clearing Id",
+                            "type": "string",
+                            "required":true
+                        },
+                        "billSource" : {
+                            "description": "Bill source",
+                            "type": "string",
+                            "required":true
+                        },
+                        "scn" : {
+                            "description": "SCN for which this token grants access to.",
+                            "type": "string",
+                            "required":true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "type": "accesstoken",
+    "application_name" : "tokeninfo",
+    "client_id" : "U1B9XQwGJvGPOyiHHCXKMY6ZQ9sds",
+    "scope" : " a",
+    "token_type" : "bearer",
+    "issued_at" : "2014-07-08T11:52:57.653Z",
+    "expires_in" : "3599",
+    "attributes" : {
+        "account_number" : "1648110436",
+        "auth_level" : "30",
+        "client_ip" : "85.3.200.66",
+        "scn" : "55579262",
+        "user_agent" : "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0",
+        "used_msisdn" : "+41791234567",
+        "username" : "tester1234",
+        "creator" : {
+            "scn" : "1112223330",
+            "accountNumber": "yxcvyxcv"
+        },
+        "payment" : {
+            "clearingType" : "PN",
+            "clearingId" : "0041223334455",
+            "billSource" : "Mobile",
+            "scn" : "2223334440"
+        }
+    }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string"
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string"
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string"
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "400",
+    "code": "INVALID_ACCESS_TOKEN",
+    "message": "Access token is invalid.",
+    "error": "invalid_request"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Invalid authentication credeintials.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "401",
+    "code": "INVALID_AUTHENTICATION_CREDENTIALS",
+    "message": "Authentication credentials missing or incorrect. Check that you are using the correct authentication method and that you have permission to the given resource and your app key is approved",
+    "error": "invalid_client"
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Not Found. The server has not found anything matching the Request-URI.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "404",
+  "code": "INVALID_REQUEST_RESOURCE",
+  "message": "The requested resource does not exist. Verify that the resource URI is correctly spelled.",
+  "detail": ""
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "405",
+  "code": "INVALID_REQUEST_METHOD",
+  "message": "The resource is not accessible via the given method. Check the documentation or the Allow header for allowed methods.",
+  "detail": ""
+}
+</code></pre></div><div class="tab-pane" id="o_oauth2_token_info_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use together with the "access_token" query string parameter.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_o_oauth2_token_revoke"><span class="parent">/o/oauth2/token</span>/revoke</a> <span class="methods"><a href="#o_oauth2_token_revoke_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_o_oauth2_token_revoke" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Used for revoking an access token.</p></div><div class="list-group"><div onclick="window.location.href = '#o_oauth2_token_revoke_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Used for revoking an access token.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="o_oauth2_token_revoke_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/o/oauth2/token</span>/revoke</h4></div><div class="modal-body"><div class="alert alert-info"><p>Used for revoking an access token.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>The Swisscom API uses OAuth 2 for authentication. An authorization header containing a valid access_token must be included in every request.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#o_oauth2_token_revoke_get_request" data-toggle="tab">Request</a></li><li><a href="#o_oauth2_token_revoke_get_response" data-toggle="tab">Response</a></li><li><a href="#o_oauth2_token_revoke_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="o_oauth2_token_revoke_get_request"><h3>Headers</h3><ul><li><strong>The Authorization OAuth2 Access Token</strong>: <em>required (string)</em><p>The Authorization OAuth2 access token. The access token, which was retrieved through OAuth2 API, must be set after the Bearer string. The parameter is marked as {access_token}</p><p><strong>Example</strong>:</p><pre>Bearer {access_token}
+</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>token</strong>: <em>required (string)</em><p>The access token to be revoked.</p></li></ul></div><div class="tab-pane" id="o_oauth2_token_revoke_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Token successfully revoked. Response body is empty.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Invalid parameter.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "type": "object" ,
+    "properties": {
+        "uuid": {
+            "description": "The UUID of the client software",
+            "type": "string",
+            "required" : "false"
+        },
+        "status": {
+            "description": "The http status code",
+            "type": "string",
+            "required": true
+        },
+        "code": {
+            "description": "The error code",
+            "type": "string",
+            "required": true
+        },
+        "message": {
+            "description": "The error message",
+            "type": "string",
+            "required": true
+        },
+        "detail": {
+            "description": "The error detail",
+            "type": "string",
+            "required": false
+        },
+        "error": {
+            "description": "The error, according to the OAuth 2.0 standard",
+            "type": "string",
+            "required": false
+        }
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "status": "400",
+    "code": "INVALID_REFRESH_TOKEN",
+    "message": "Refresh token is invalid.",
+    "detail": "Refresh token is invalid, expired, revoked, was already refreshed, or was issued to another client.",
+    "error": "invalid_grant"
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Not Found. The server has not found anything matching the Request-URI.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "404",
+  "code": "INVALID_REQUEST_RESOURCE",
+  "message": "The requested resource does not exist. Verify that the resource URI is correctly spelled.",
+  "detail": ""
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object" ,
+  "properties": {
+    "uuid": {
+      "description": "The UUID of the client software",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "The http status code, e.g. 400",
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "description": "The error code, e.g. INVALID_PARAMETER",
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "description": "The error message",
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "description": "The error detail",
+      "type": "string",
+      "required": false
+    }
+  }
+}  
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "405",
+  "code": "INVALID_REQUEST_METHOD",
+  "message": "The resource is not accessible via the given method. Check the documentation or the Allow header for allowed methods.",
+  "detail": ""
+}
+</code></pre></div><div class="tab-pane" id="o_oauth2_token_revoke_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use together with the "access_token" query string parameter.</p></li></ul></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#c_oauth2">/c/oauth2</a></li><li><a href="#o_oauth2">/o/oauth2</a></li></ul></div></div></div></div></body></html>
