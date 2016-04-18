@@ -35,7 +35,7 @@ Send an SMS
 
 ###### Body Example (application/json)
 
-```JSON
+```json
 {
   "from": "Swisscom",
   "to": "+4171234567",
@@ -44,7 +44,7 @@ Send an SMS
 }
 ```
 ###### Body Schema (application/json)
-```JSON
+```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
@@ -76,7 +76,7 @@ Send an SMS
 
 ###### 201 Response
 
-```JSON
+```json
 no content
 ```
 
@@ -105,7 +105,7 @@ Get Status information for an SMS
 
 ###### 201 Response Example (application/json)
 
-```JSON
+```json
 {
   "messageId": "0001",
   "status": "201",
@@ -113,7 +113,7 @@ Get Status information for an SMS
 }
 ```
 ###### 201 Response Schema (application/json)
-```JSON
+```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
@@ -155,7 +155,7 @@ This call will start the SMS Token validation process by sending a validation to
 
 ###### Body Example (application/json)
 
-```JSON
+```json
 {
   "to": "+41791544781",
   "text": "Verification code: %TOKEN% \r\n Expires in 60 seconds.",
@@ -165,7 +165,7 @@ This call will start the SMS Token validation process by sending a validation to
 }
 ```
 ###### Body Schema (application/json)
-```JSON
+```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object" ,
@@ -210,7 +210,7 @@ This call will start the SMS Token validation process by sending a validation to
 
 ###### 201 Response
 
-```JSON
+```json
 no content
 ```
 
@@ -239,13 +239,13 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ##### Success Responses
 
 ###### 200 Response Example (application/json)
-```JSON
+```json
 {
   "validation": "SUCCESS"
 }
 ```
 ###### 200 Response Schema (application/json)
-```JSON
+```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object" ,
@@ -271,7 +271,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ## <a id='error-handling'></a> Error Handling
 
 ### Error Response Schema
-```JSON
+```json
 {
   "$schema": "http://json-schema.org/draft-03/schema",
   "type": "object" ,
@@ -309,7 +309,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='400'></a> 400 (Bad Request. Invalid request.)
 
-```JSON
+```json
 {
   "status": "400",
   "code": "INVALID_REQUEST",
@@ -320,7 +320,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='401'></a> 401 (Unauthorized. No permission to resource or invalid api key.)
 
-```JSON
+```json
 {
   "status": "401",
   "code": "INVALID_AUTHENTICATION_CREDENTIALS",
@@ -331,7 +331,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='403'></a> 403 (Forbidden. No permission for requested resource.)
 
-```JSON
+```json
 {
   "status": "403",
   "code": "FORBIDDEN_RESOURCE",
@@ -342,7 +342,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='404'></a> 404 (Not Found. The server has not found anything matching the Request-URI.)
 
-```JSON
+```json
 {
   "status": "404",
   "code": "INVALID_REQUEST_RESOURCE",
@@ -353,7 +353,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='405'></a> 405 (Method Not Allowed. The resource is not accessible via the given method. For example, the client sent a POST request to a resource that only implements GET.)
 
-```JSON
+```json
 {
   "status": "405",
   "code": "INVALID_REQUEST_METHOD",
@@ -364,7 +364,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='406'></a> 406 (Invalid Header Accept. The provided Accept-type is not equal the accepted. E.g. application/zip instead of text/json.)
 
-```JSON
+```json
 {
   "status": "406",
   "code": "INVALID_HEADER_ACCEPT",
@@ -375,7 +375,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='429'></a> 429 (Too Many Requests. Quota for this service has been exhausted. Message must contain further details.)
 
-```JSON
+```json
 {
   "status": "429",
   "code": "EXPIRED_QUOTA",
@@ -386,7 +386,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='500'></a> 500 (Internal Server Error. Server is misconfigured, or generic error message.)
 
-```JSON
+```json
 {
   "status": "500",
   "code": "INTERNAL_SERVER_ERROR",
@@ -397,7 +397,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 
 #### <a id='503'></a> 503 (Service Unavailable. The server is currently unable to handle the request due to temporary overloading or maintenance. Typically back-end is unavailable.)
 
-```JSON
+```json
 {
   "status": "503",
   "code": "UNAVAILABLE_SERVICE",
