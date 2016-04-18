@@ -43,7 +43,9 @@ Send an SMS
   "callbackUrl": "http://notification.com/service"
 }
 ```
+
 ###### Body Schema (application/json)
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -76,7 +78,7 @@ Send an SMS
 
 ###### 201 Response
 
-```json
+```txt
 no content
 ```
 
@@ -112,7 +114,9 @@ Get Status information for an SMS
   "description": "Delivered with delivery confirmation"
 }
 ```
+
 ###### 201 Response Schema (application/json)
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -164,7 +168,9 @@ This call will start the SMS Token validation process by sending a validation to
   "tokenLength": 6
 }
 ```
+
 ###### Body Schema (application/json)
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -210,7 +216,7 @@ This call will start the SMS Token validation process by sending a validation to
 
 ###### 201 Response
 
-```json
+```txt
 no content
 ```
 
@@ -239,12 +245,15 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ##### Success Responses
 
 ###### 200 Response Example (application/json)
+
 ```json
 {
   "validation": "SUCCESS"
 }
 ```
+
 ###### 200 Response Schema (application/json)
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -271,6 +280,7 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 ## <a id='error-handling'></a> Error Handling
 
 ### Error Response Schema
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-03/schema",
@@ -406,14 +416,11 @@ Validate the token sent to the MSISDN number by the *Send SMS Token* call. This 
 }
 ```
 
-
-
 ## <a id='authentication'></a> ClientId Authentication
 
 The SmartSms API requires ClientId authentication. The ClientId is part of the DevPortal ServiceKey, which are available after you bind the SmartSms service to your app. For a valid authentication, you have to set the ClientId as HTTP header `client_id` in your REST request. See also examples for details.
 
 ![SmartSmsServiceKey](./img/SmartSmsServiceKey.png)
-
 
 ## <a id='examples'></a> Examples
 
