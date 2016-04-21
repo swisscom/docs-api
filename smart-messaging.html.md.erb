@@ -436,7 +436,7 @@ curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X 
 
 By default your registered mobile number is used as sender number. To display a different sender number you can set the "from" parameter. Notice: you need special permissions to use this parameter. Please contact our support team, to book this feature.
 
-If you need updates about the SMS state (e.g. SMS was received). You can set the `callBackUrl` parameter.  You will receive a HTTP PUT request on this URL, on any SMS state change.
+If you need updates about the SMS state (e.g. SMS was received), you can set the `callBackUrl` parameter. You will receive a HTTP PUT request on this URL, on any SMS state change.
 
 <pre class="terminal">
 curl -ik -H "Content-Type: application/json" -H "client_id:%YOUR_CLIENT_ID%" -X POST "https://api.swisscom.com/messaging/v1/sms" -d "{\"to\": \"+417xxxxxxxx\", \"from\": \"Swisscom\", \"text\": \"hello world\", \"callbackUrl\": \"http://mydomain.net/notification\"}"
