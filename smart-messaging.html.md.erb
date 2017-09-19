@@ -17,6 +17,12 @@ Send SMS and check their status.
 
 Validate a phone number via SMS token. To validate a number, a predefined SMS message with an included textual token will be sent to your customer's mobile phone. The customer then enters this token somewhere in your application (e.g. HTML from, Mail, Callcenter) and you can validate it using this API.
 
+## <a id="creation"> Creation
+
+To create a Smart Messaging service, simply click "Create Service" in the web console or run `cf create-service smartmsg usage my-sms` (replace "my-sms" with the actual name of your service instance).
+
+*Important*: Note that you'll have to activate the service after you have triggered its creation. To do so, click the "Manage" button on the service instance's detail screen in the web console.
+
 ## <a id='API'></a> API Resources
 
 ### Sending SMS
