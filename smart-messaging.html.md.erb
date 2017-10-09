@@ -1,4 +1,4 @@
----
+/---
 title: Smart Messaging
 owner: API
 ---
@@ -172,7 +172,7 @@ POST /messaging/tokenvalidation
 ```
 
 <pre class="terminal">
-curl -X POST https://api.swisscom.com/messaging/sms/tokenvalidation -H 'SCS-Version: 2' -H 'client_id: MyClientID' -H 'Content-Type: application/json' -d '{"to":"+41791234567", "text":"Take this token: %TOKEN%", "tokenType":"SHORT_NUMERIC", "expireTime":120,"tokenLength":6}'
+curl -X POST https://api.swisscom.com/messaging/tokenvalidation -H 'SCS-Version: 2' -H 'client_id: MyClientID' -H 'Content-Type: application/json' -d '{"to":"+41791234567", "text":"Take this token: %TOKEN%", "tokenType":"SHORT_NUMERIC", "expireTime":120,"tokenLength":6}'
 </pre>
 
 This call will start the SMS Token validation process by sending a validation token to an MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify that the user recieved the validation token by calling the *Validate SMS Token* endpoint.
@@ -263,7 +263,7 @@ GET /messaging/tokenvalidation/{msisdn}/{token}
 ```
 
 <pre class="terminal">
-curl https://api.swisscom.com/messaging/sms/tokenvalidation/00791234567/MyReceivedToken -H 'SCS-Version: 2' -H 'client_id: MyClientID'
+curl https://api.swisscom.com/messaging/tokenvalidation/00791234567/MyReceivedToken -H 'SCS-Version: 2' -H 'client_id: MyClientID'
 </pre>
 
 Validate a token sent to the MSISDN number using the *Send SMS Token* endpoint. This call is made after the *Send SMS Token* call to validate the token sent to the end user via SMS.
