@@ -32,7 +32,7 @@ POST /messaging/sms
 ```
 
 <pre class="terminal">
-curl -X POST https://api.swisscom.com/messaging/sms -H 'SCS-Version: 2' -H 'client_id: MyClientID' -H 'Content-Type: application/json' -d '{"to": "+41791234567", "text": "hello world"}'
+curl -X POST https://api.swisscom.com/messaging/sms -H 'SCS-Version: 2' -H 'client_id: {YourClientID}' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'SCS-Request-ID: {YourRequestID}' -d '{"to": "{YourPhoneNumber}", "text": "YourMessageText."}'
 </pre>
 
 #### Request
@@ -40,9 +40,9 @@ curl -X POST https://api.swisscom.com/messaging/sms -H 'SCS-Version: 2' -H 'clie
 ##### Headers
 
 * `client_id` required (See [authentication](#authentication))
-* `SCS-Version` required (Must be `2`)
+* `SCS-Version` required (Must be`2`)
 * `Content-Type` required (E.g. `application/json`)
-* `Accept` optional (Defaults to `application/json`)
+* `Accept` required (Must be `application/json`)
 * `SCS-Request-ID` optional (Can be used to trace your request to our API. Only relevant if you need support from our team so they know which request to look into.)
 
 ##### Body Example (application/json)
@@ -109,16 +109,16 @@ GET /messaging/sms/{messageId}
 ```
 
 <pre class="terminal">
-curl https://api.swisscom.com/messaging/sms/1 -H 'SCS-Version: 2' -H 'client_id: MyClientID'
+curl https://api.swisscom.com//messaging/sms/{messageId} -H 'SCS-Version: 2' -H 'client_id: {YourClientID}' -H 'Accept: application/json' -H 'SCS-Request-ID: {YourRequestID}'
 </pre>
 
 #### Request
 
 ##### Headers
 
-* `client_id` required (See [authentication](#authentication))
 * `SCS-Version` required (Must be `2`)
-* `Accept` optional (Defaults to `application/json`)
+* `client_id` required (See [authentication](#authentication))
+* `Accept` required (Defaults to `application/json`)
 * `SCS-Request-ID` optional (Can be used to trace your request to our API. Only relevant if you need support from our team so they know which request to look into.)
 
 ##### URI Parameters
@@ -172,7 +172,7 @@ POST /messaging/tokenvalidation
 ```
 
 <pre class="terminal">
-curl -X POST https://api.swisscom.com/messaging/tokenvalidation -H 'SCS-Version: 2' -H 'client_id: MyClientID' -H 'Content-Type: application/json' -d '{"to":"+41791234567", "text":"Take this token: %TOKEN%", "tokenType":"SHORT_NUMERIC", "expireTime":120,"tokenLength":6}'
+curl -X POST https://api.swisscom.com/messaging/tokenvalidation -H 'SCS-Version: 2' -H 'client_id: MyClientID' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'SCS-Request-ID: {YourRequestID}' -d '{"to":"+41791234567", "text":"Take this token: %TOKEN%", "tokenType":"SHORT_NUMERIC", "expireTime":120,"tokenLength":6}'
 </pre>
 
 This call will start the SMS Token validation process by sending a validation token to an MSISDN. The validation token is a random string of characters that is sent to the user's mobile phone. After making this call, your application can then verify that the user recieved the validation token by calling the *Validate SMS Token* endpoint.
@@ -181,8 +181,8 @@ This call will start the SMS Token validation process by sending a validation to
 
 ##### Headers
 
-* `client_id` required (See [authentication](#authentication))
 * `SCS-Version` required (Must be `2`)
+* `client_id` required (See [authentication](#authentication))
 * `Content-Type` required (E.g. `application/json`)
 * `Accept` optional (Defaults to `application/json`)
 * `SCS-Request-ID` optional (Can be used to trace your request to our API. Only relevant if you need support from our team so they know which request to look into.)
@@ -263,7 +263,7 @@ GET /messaging/tokenvalidation/{msisdn}/{token}
 ```
 
 <pre class="terminal">
-curl https://api.swisscom.com/messaging/tokenvalidation/00791234567/MyReceivedToken -H 'SCS-Version: 2' -H 'client_id: MyClientID'
+curl https://api.swisscom.com/messaging/tokenvalidation/{YourMsisdn}/{YourReceivedToken} -H 'SCS-Version: 2' -H 'client_id: {YourClientID}' -H 'Accept: application/json' -H 'SCS-Request-ID: {YourRequestID}'
 </pre>
 
 Validate a token sent to the MSISDN number using the *Send SMS Token* endpoint. This call is made after the *Send SMS Token* call to validate the token sent to the end user via SMS.
@@ -274,13 +274,13 @@ Validate a token sent to the MSISDN number using the *Send SMS Token* endpoint. 
 
 * `client_id` required (See [authentication](#authentication))
 * `SCS-Version` required (Must be `2`)
-* `Accept` optional (Defaults to `application/json`)
+* `Accept` required (Must be `application/json`)
 * `SCS-Request-ID` optional (Can be used to trace your request to our API. Only relevant if you need support from our team so they know which request to look into.)
 
 ##### URI Parameters
 
-* `msisdn` (The token depending phone number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.)
-* `token` (The token to verify.)
+* `msisdn` required (The token depending phone number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.)
+* `token` required (The token to verify.)
 
 #### Success Responses
 
