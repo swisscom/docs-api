@@ -9,3 +9,7 @@ To contribute, please create a pull request for this repo.
 ## Get access as Swisscom Employee
 
 [https://devops.swisscom.com/docs/foss/contribution.html]
+
+## More Infos and OnBoarding
+
+[https://sms.scapp.swisscom.com/]
