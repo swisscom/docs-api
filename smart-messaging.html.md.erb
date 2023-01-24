@@ -3,9 +3,9 @@ title: Smart Messaging
 owner: API
 ---
 
-## Swisscom Messaging Api Product
+## Swisscom Messaging Api Product (SMS)
 
-The Messaging APIs are avaiable from [Swisscom Digital Marketplace](https://digital.swisscom.com). Just follow these steps to register:
+The Messaging SMS APIs are avaiable from [Swisscom Digital Marketplace](https://digital.swisscom.com). Just follow these steps to register:
 
 
 1. Sign up for a new account on our Swisscom Digital Marketplace: https://digital.swisscom.com. 
@@ -81,46 +81,12 @@ curl -X POST https://api.swisscom.com/messaging/sms -H 'SCS-Version: 2' -H 'clie
 
 ```json
 {
-  "from": "Swisscom",
   "to": "+41791234567",
-  "text": "Greetings from Swisscom!",
-  "callbackUrl": "https://notification.com/service"
+  "text": "Greetings from Swisscom!"
 }
 ```
-
-By default, the mobile number you used to create your service instance is used as the sender's number. To display a different sender, you can set the `from` parameter. Notice: you need special permissions to use this parameter. Please contact our support team at developer-support@swisscom.com to get access to this feature.
 
 If you need updates about the SMS state (e.g. SMS was received), you can set the `callBackUrl` parameter. You will receive an HTTP `PUT` request to this URL, for any state change of this SMS.
-
-##### Body Schema (application/json)
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "type": "object",
-  "required": [
-    "to", "text"
-  ],
-  "properties": {
-    "from": {
-      "description": "Sender name or number. Valid MSISDN number or alpha numeric text with max. 11 Characters. Defaults to the number used to create the service. Special permissions required to set this.",
-      "type": "string"
-    },
-    "to": {
-      "description": "Recipient number. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.",
-      "type": "string"
-    },
-    "text": {
-      "description": "Appears as text in SMS.",
-      "type": "string"
-    },
-    "callbackUrl": {
-      "description": "A valid callback URL (HTTP) for delivery notification. The notification call will be sent (PUT method with the header.location which contains messageID) for each SMS status change",
-      "type": "string"
-    }
-  }
-}
-```
 
 #### Success Responses
 
@@ -133,6 +99,8 @@ no content
 #### Error Responses
 
 [400](#400), [401](#401), [403](#403), [404](#404), [405](#405), [406](#406), [429](#429), [500](#500), [503](#503)
+
+Most updated error response you can find on the documention on Swisscom Digital Markeplace
 
 ### Get status information for an SMS
 
@@ -155,7 +123,7 @@ curl https://api.swisscom.com//messaging/sms/{messageId} -H 'SCS-Version: 2' -H 
 
 ##### URI Parameters
 
-* `messageId` (MessageId of the SMS. You will receive this on notification request.)
+* `messageId` (MessageId of the SMS. You will receive this in the location header of the initial post to send the sms.)
 
 #### Success Responses
 
@@ -165,31 +133,7 @@ curl https://api.swisscom.com//messaging/sms/{messageId} -H 'SCS-Version: 2' -H 
 {
   "messageId": "0001",
   "status": "201",
-  "description": "Delivered with delivery confirmation"
-}
-```
-
-###### 201 Response Schema (application/json)
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "type": "object",
-  "required": [
-    "messageId",
-    "status"
-  ],
-  "properties": {
-    "messageId": {
-      "type": "string"
-    },
-    "status": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    }
-  }
+  ...
 }
 ```
 
@@ -233,48 +177,6 @@ This call will start the SMS Token validation process by sending a validation to
 
 Use `%TOKEN%` as a placeholder for where the actual token should go.
 
-##### Body Schema (application/json)
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "type": "object" ,
-  "required": [
-    "to"
-  ],
-  "properties": {
-    "to": {
-      "description": "Mobile number which should be verified. A valid number starts with 0, 00 or + and must contain 7 to 15 digits. Local numbers (prefix 0) are handled with international code +41 by default.",
-      "type": "string"
-    },
-    "text": {
-      "description": "Appears as text in SMS. %TOKEN% is the placeholder for the generated token.",
-      "type": "string"
-    },
-    "tokenType": {
-      "description": "Describes what kind of token should be generated.",
-      "enum": [
-        "SHORT_NUMERIC",
-        "SHORT_ALPHANUMERIC",
-        "SHORT_SMALL_AND_CAPITAL",
-        "LONG_CRYPTIC"
-      ]
-    },
-    "expireTime": {
-      "description": "Expiration time of the token in seconds.",
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 86400
-    },
-    "tokenLength": {
-      "description": "The size of the token. Is mandatory for all SHORT_* tokenTypes.",
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 12
-    }
-  }
-}
-```
 
 #### Success Responses
 
@@ -321,27 +223,6 @@ Validate a token sent to the MSISDN number using the *Send SMS Token* endpoint. 
 ```json
 {
   "validation": "SUCCESS"
-}
-```
-
-##### 200 Response Schema (application/json)
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "type": "object" ,
-  "required": [
-    "validation"
-  ],
-  "properties": {
-    "validation": {
-      "description": "More details on the error",
-      "enum": [
-        "SUCCESS",
-        "FAILED"
-      ]
-    }
-  }
 }
 ```
 
@@ -488,8 +369,3 @@ Validate a token sent to the MSISDN number using the *Send SMS Token* endpoint. 
 }
 ```
 
-## <a id='authentication'></a> ClientId Authentication
-
-The SMS API requires ClientId authentication. The ClientId is part of the credentials, which are available in the `VCAP_SERVICES` environment variable after you [bind the SMS API service to your app](/devguide/services/application-binding.html) or through [service keys](/devguide/services/service-keys.html). For a valid authentication of your requests, you must set the ClientId as HTTP header `client_id` in your requests. See also [examples](#examples) for details.
-
-![SmartSmsServiceKey](./img/SmartSmsServiceKey.png)
